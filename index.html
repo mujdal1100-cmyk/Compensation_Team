@@ -358,110 +358,22 @@ function normAr(s){
   return (s||"").toLowerCase().replace(/[أإآ]/g,"ا").replace(/ة/g,"ه").replace(/ى/g,"ي").replace(/[\u064B-\u065F]/g,"");
 }
 
-// الحسابات وكلمات المرور الجديدة المعتمدة
-var PRESET_USERS={
-  "mohammed.":{pass:"OL#mhm91",name:"OL | Mohammed.",rank:"High Management"},
-  "cobra":{pass:"OL#cbr82",name:"OL | cobra",rank:"High Management"},
-  "ahmed":{pass:"OL#ahm73",name:"OL | Ahmed",rank:"High Management"},
-  "vanas7":{pass:"OL#ans64",name:"OL | vAnas7",rank:"High Management"},
-  "sove":{pass:"OL#sov55",name:"OL | sove",rank:"High Management"},
-  "attack":{pass:"OL#atk46",name:"OL | Attack",rank:"Direct Manager"},
-  "mohannad":{pass:"OL#mhn37",name:"OL | Mohannad",rank:"Compensation Manager"},
-  "arthur":{pass:"OL#art28",name:"OL | Arthur",rank:"Assistant Compensation Manager"},
-  "jin":{pass:"OL#jin19",name:"OL | Jin",rank:"Compensation Team"},
-  "7sen":{pass:"OL#7sn90",name:"OL | 7sen",rank:"Compensation Team"},
-  "ammar":{pass:"OL#amr81",name:"OL | Ammar",rank:"Compensation Team"},
-  "faisal":{pass:"OL#fsl72",name:"OL | Faisal",rank:"Compensation Team"},
-  "bnr":{pass:"OL#bnr63",name:"OL | Bnr",rank:"Compensation Team"}
-};
-
-var DEFAULT_DATA={
-  users:["Mohammed.","cobra","Ahmed","vAnas7","sove","Attack","Mohannad","Arthur","Jin","7sen","Ammar","Faisal","Bnr"],
-  profiles:{
-    "mohammed.":{name:"OL | Mohammed.",rank:"High Management"},
-    "cobra":{name:"OL | cobra",rank:"High Management"},
-    "ahmed":{name:"OL | Ahmed",rank:"High Management"},
-    "vanas7":{name:"OL | vAnas7",rank:"High Management"},
-    "sove":{name:"OL | sove",rank:"High Management"},
-    "attack":{name:"OL | Attack",rank:"Direct Manager"},
-    "mohannad":{name:"OL | Mohannad",rank:"Compensation Manager"},
-    "arthur":{name:"OL | Arthur",rank:"Assistant Compensation Manager"},
-    "jin":{name:"OL | Jin",rank:"Compensation Team"},
-    "7sen":{name:"OL | 7sen",rank:"Compensation Team"},
-    "ammar":{name:"OL | Ammar",rank:"Compensation Team"},
-    "faisal":{name:"OL | Faisal",rank:"Compensation Team"},
-    "bnr":{name:"OL | Bnr",rank:"Compensation Team"}
-  },
-  CMDS:[
-    ["إعطاء غرض للاعب","giveitem [id] [item] [amount]"],
-    ["إعطاء سلاح للاعب","giveweapon [id] [weapon] [ammo]"],
-    ["إعطاء فلوس (كاش / بنك)","givemoney [id] [cash/bank] [amount]"],
-    ["فتح حقيبة لاعب","openinv [id]"],
-    ["إنعاش لاعب","revive [id]"]
-  ],
-  T:[
-    ["قوالب ردود التذاكر",[
-      ["قبول التعويض","تم قبول طلب التعويض الخاص بك وتوثيق الأغراض، يرجى التواجد داخل السيرفر وتزويدنا بالأيدي (ID) لاستلام التعويض."],
-      ["رفض لعدم كفاية الأدلة","نعتذر منك، تم رفض طلب التعويض لعدم وجود تصوير واضح يثبت المشكلة أو فقدان الأغراض."],
-      ["إغلاق التذكرة بعد التسليم","تم تسليم التعويض بالكامل، نتمنى لك وقتاً ممتعاً في OUTLAW RP."]
-    ]]
-  ],
-  D:[
-    ["الأسلحة",[
-      ["مسدس قلوك","weapon_combatpistol"],
-      ["مسدس ثقيل","weapon_heavypistol"],
-      ["مسدس فينتج","weapon_vintagepistol"],
-      ["مسدس أبنك","weapon_appistol"],
-      ["مايكرو اس ام جي","weapon_microsmg"],
-      ["ام بي 5","weapon_smg"],
-      ["رشاش أي كي","weapon_assaultrifle"],
-      ["رشاش كاربين","weapon_carbinerifle"],
-      ["شوتقن","weapon_pumpshotgun"]
-    ]],
-    ["الذخيرة والدروع",[
-      ["ذخيرة مسدس","pistol_ammo"],
-      ["ذخيرة اس ام جي","smg_ammo"],
-      ["ذخيرة رشاش","rifle_ammo"],
-      ["ذخيرة شوتقن","shotgun_ammo"],
-      ["درع ثقيل","heavyarmor"],
-      ["درع خفيف","armor"]
-    ]],
-    ["الأدوات والاتصالات",[
-      ["راديو","radio"],
-      ["جوال","phone"],
-      ["منظار","binoculars"],
-      ["عدّة إصلاح","repairkit"],
-      ["عدّة تنظيف","cleaningkit"],
-      ["أصفاد","handcuffs"],
-      ["مفك أقفال","lockpick"],
-      ["مفك متطور","advancedlockpick"]
-    ]],
-    ["الإسعافات والصحة",[
-      ["ضماد","bandage"],
-      ["حقيبة إسعافات","firstaid"],
-      ["مسكن ألم","painkillers"],
-      ["إيفاك","ifaks"]
-    ]],
-    ["السرقات والممنوعات",[
-      ["لابتوب تهكير","laptop"],
-      ["بطاقة بنك","security_card_01"],
-      ["ترميت","thermite"],
-      ["دريل","drill"],
-      ["حقيبة نقود","markedbills"],
-      ["سبائك ذهب","goldbar"],
-      ["مجوهرات","rolex"]
-    ]],
-    ["المطاعم",[
-      ["وجبة برجر","burger"],
-      ["ساندوتش","sandwich"],
-      ["بيتزا","pizza"],
-      ["شاورما","shawarma"],
-      ["بطاطس مقلي","fries"],
-      ["ماء","water_bottle"],
-      ["كولا","kurkakola"],
-      ["قهوة","coffee"]
-    ]]
-  ]
+// كلمات المرور الجديدة المقترحة داخل لوحة الإشراف لحفظها على البيانات الأصلية
+var SUGGESTED_PASS={
+  "mohammed.":"OL#mhm91",
+  "mohammed":"OL#mhm91",
+  "cobra":"OL#cbr82",
+  "ahmed":"OL#ahm73",
+  "vanas7":"OL#ans64",
+  "sove":"OL#sov55",
+  "attack":"OL#atk46",
+  "mohannad":"OL#mhn37",
+  "arthur":"OL#art28",
+  "jin":"OL#jin19",
+  "7sen":"OL#7sn90",
+  "ammar":"OL#amr81",
+  "faisal":"OL#fsl72",
+  "bnr":"OL#bnr63"
 };
 
 var VAULT=JSON.parse(document.getElementById("vault").textContent),RAWK=null,DATA=null,el=function(i){return document.getElementById(i)};
@@ -557,72 +469,70 @@ async function login(){
   var stripped=rawN.trim().replace(/^ol\s*[\|\/\\\-:]?\s*/i,"").trim();
   var cleanP=rawP.trim();
   if(!stripped||!cleanP){
-    err.textContent="اسم المستخدم أو كلمة السر غير صحيحة";
+    err.textContent="يرجى إدخال اسم المستخدم وكلمة السر";
     return;
   }
 
   var noDot=stripped.toLowerCase().replace(/\.+$/,"");
-  var cands=[stripped.toLowerCase(),noDot,noDot+"."];
+  var noSpaces=stripped.toLowerCase().replace(/\s+/g,"");
+  var cands=[stripped.toLowerCase(),noDot,noDot+".",noSpaces,rawN.trim().toLowerCase(),"ol | "+noDot];
 
-  // 1) فحص الدخول عبر كلمات المرور الجديدة المعتمدة
-  var presetMatch=null,presetKey=null;
-  for(var k=0;k<cands.length;k++){
-    if(PRESET_USERS[cands[k]]){
-      presetKey=cands[k];
-      presetMatch=PRESET_USERS[cands[k]];
-      break;
-    }
+  var matchedN=null,u=null;
+  for(var i=0;i<cands.length;i++){
+    if(!cands[i])continue;
+    var id=await uid(cands[i]);
+    var found=VAULT.users.filter(function(x){return x.id===id})[0];
+    if(found){matchedN=cands[i];u=found;break}
   }
 
-  var loggedInUser=null;
+  if(!u){
+    err.textContent="اسم المستخدم غير موجود في الخزنة المشفرة (إذا كان حساباً جديداً، ادخل بأي حساب قديم أولاً ثم احفظه من الإشراف)";
+    return;
+  }
 
-  if(presetMatch && (rawP===presetMatch.pass || cleanP===presetMatch.pass)){
-    loggedInUser=presetKey;
-    if(!RAWK)RAWK=crypto.getRandomValues(new Uint8Array(32));
-    if(!DATA)DATA=JSON.parse(JSON.stringify(DEFAULT_DATA));
-  }else{
-    // 2) فحص الخزنة المشفرة (يدعم أي كلمات سر محفوظة في الخزنة)
-    var matchedN=null,u=null;
-    for(var i=0;i<cands.length;i++){
-      var id=await uid(cands[i]);
-      var found=VAULT.users.filter(function(x){return x.id===id})[0];
-      if(found){matchedN=cands[i];u=found;break}
-    }
-    if(!u){
-      err.textContent="اسم المستخدم أو كلمة السر غير صحيحة";
-      return;
-    }
-    var pCands=[rawP];
-    if(cleanP!==rawP)pCands.push(cleanP);
-    var unlocked=false;
-    for(var j=0;j<pCands.length;j++){
-      try{
-        RAWK=await dec(await wkey(matchedN,pCands[j],a2b(u.salt)),u);
-        var K=await S.importKey("raw",RAWK,"AES-GCM",false,["decrypt"]);
-        DATA=JSON.parse(td.decode(await dec(K,VAULT.data)));
-        // التأكد من وجود vAnas7 و sove في البيانات بعد فك التشفير
-        DATA.profiles=DATA.profiles||{};
-        if(!DATA.profiles["vanas7"]){DATA.users.push("vAnas7");DATA.profiles["vanas7"]={name:"OL | vAnas7",rank:"High Management"}}
-        if(!DATA.profiles["sove"]){DATA.users.push("sove");DATA.profiles["sove"]={name:"OL | sove",rank:"High Management"}}
-        unlocked=true;
-        loggedInUser=matchedN;
-        break;
-      }catch(e){}
-    }
-    if(!unlocked){
-      err.textContent="اسم المستخدم أو كلمة السر غير صحيحة";
-      return;
-    }
+  el("lu").value=matchedN;
+
+  var pCands=[rawP];
+  if(cleanP!==rawP)pCands.push(cleanP);
+  if(rawP.replace(/\s+/g,"")!==rawP)pCands.push(rawP.replace(/\s+/g,""));
+
+  var unlocked=false;
+  for(var j=0;j<pCands.length;j++){
+    try{
+      RAWK=await dec(await wkey(matchedN,pCands[j],a2b(u.salt)),u);
+      var K=await S.importKey("raw",RAWK,"AES-GCM",false,["decrypt"]);
+      DATA=JSON.parse(td.decode(await dec(K,VAULT.data)));
+      unlocked=true;
+      break;
+    }catch(e){}
+  }
+
+  if(!unlocked){
+    err.textContent="اسم المستخدم ("+matchedN+") صحيح، لكن كلمة السر غير مطابقة للكلمة المحفوظة في الخزنة";
+    return;
+  }
+
+  // إضافة vAnas7 و sove تلقائياً إلى قائمة الأعضاء عند فتح الخزنة الأصلية
+  DATA.users=DATA.users||[];
+  DATA.profiles=DATA.profiles||{};
+  var lowerUsers=DATA.users.map(function(x){return x.toLowerCase()});
+  if(lowerUsers.indexOf("vanas7")===-1){
+    DATA.users.push("vAnas7");
+    DATA.profiles["vanas7"]={name:"OL | vAnas7",rank:"High Management"};
+  }
+  if(lowerUsers.indexOf("sove")===-1){
+    DATA.users.push("sove");
+    DATA.profiles["sove"]={name:"OL | sove",rank:"High Management"};
   }
 
   el("login").style.display="none";document.body.classList.remove("locked");
-  var pf=(DATA.profiles||{})[loggedInUser.toLowerCase()]||PRESET_USERS[loggedInUser.toLowerCase()];
+  var pf=(DATA.profiles||{})[matchedN.toLowerCase()];
   if(pf){
     var w=el("who");w.innerHTML="";
     var b=document.createElement("b");b.textContent=pf.name;w.appendChild(b);
     if(pf.rank){var rk=document.createElement("i");rk.textContent=pf.rank;w.appendChild(rk)}
   }
-  if(isAdminUser(loggedInUser,pf))el("adm").hidden=false;
+  el("adm").hidden=false;
   render(DATA.CMDS,DATA.D,DATA.T);
   if(location.hash){
     var target=document.querySelector(location.hash);
@@ -667,10 +577,9 @@ function updateUCount(){
 function urow(n,isNew){
   var d=document.createElement("div");d.className="ucard";
   var key=(n||"").toLowerCase();
-  var pf=(DATA.profiles||{})[key]||PRESET_USERS[key]||{};
+  var pf=(DATA.profiles||{})[key]||{};
   var dispName=pf.name||(n?"OL | "+n:"");
   var rankVal=pf.rank||"Compensation Team";
-  var defaultPass=(PRESET_USERS[key]&&PRESET_USERS[key].pass)||"";
 
   var top=document.createElement("div");top.className="ucard-top";
   var title=document.createElement("span");title.className="ucard-title";title.textContent=dispName||"عضو جديد";
@@ -702,9 +611,11 @@ function urow(n,isNew){
   f3.appendChild(l3);f3.appendChild(pr);
 
   var f4=document.createElement("div");f4.className="ufield";
-  var l4=document.createElement("label");l4.textContent="كلمة السر";
+  var l4=document.createElement("label");l4.textContent="كلمة السر الجديدة (أو اتركها فاضية للإبقاء على القديمة)";
   var pwWrap=document.createElement("div");pwWrap.className="pwrow";
-  var p=document.createElement("input");p.className="u-pass";p.value=defaultPass;p.placeholder=n?"اتركها فاضية لعدم التغيير":"كلمة السر (6 خانات فأكثر)";
+  var p=document.createElement("input");p.className="u-pass";
+  p.value=SUGGESTED_PASS[key]||"";
+  p.placeholder=n?"بدون تغيير":"كلمة السر (6 خانات فأكثر)";
   var genBtn=document.createElement("button");genBtn.type="button";genBtn.className="c sec";genBtn.textContent="توليد";
   genBtn.onclick=function(){
     var chars="abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789";
@@ -869,7 +780,7 @@ el("aadd").onclick=function(){urow("",true)};
 el("aclose").onclick=function(){el("adminp").hidden=true};
 
 async function buildUpdatedHTML(){
-  var rows=[].slice.call(el("al").children),seen={},out=[],names=[],profs={},newPresets={};
+  var rows=[].slice.call(el("al").children),seen={},out=[],names=[],profs={};
   for(var i=0;i<rows.length;i++){
     var uIn=rows[i].querySelector(".u-user"),nIn=rows[i].querySelector(".u-name"),rIn=rows[i].querySelector(".u-rank"),pIn=rows[i].querySelector(".u-pass");
     var n=uIn.value.trim().replace(/^ol\s*\|\s*/i,"").trim(),o=uIn.dataset.o,p=pIn.value.trim();
@@ -886,14 +797,12 @@ async function buildUpdatedHTML(){
     }else{
       if(p.length<6)throw "كلمة السر يجب أن تكون 6 خانات على الأقل للعضو ("+n+")";
       out.push(await mkUser(n,p,RAWK));
-      newPresets[key]={pass:p,name:disp,rank:rnk};
     }
     names.push(n);
     profs[key]={name:disp,rank:rnk};
   }
   if(!out.length)throw "يجب بقاء عضو واحد على الأقل";
   DATA.users=names;DATA.profiles=profs;
-  Object.keys(newPresets).forEach(function(k){PRESET_USERS[k]=newPresets[k]});
   var K=await S.importKey("raw",RAWK,"AES-GCM",false,["encrypt"]);
   var nv={v:1,users:out,data:await enc(K,te.encode(JSON.stringify(DATA)))};
   VAULT=nv;
@@ -915,7 +824,7 @@ el("asave-copy").onclick=async function(){
     var html=await buildUpdatedHTML();
     copyText(html,el("asave-copy"),"تم نسخ الكود");
     er.className="okmsg";
-    er.textContent="تم حفظ التعديلات ونسخ كود الموقع بالكامل، افتح ملف index.html في GitHub والصق الكود.";
+    er.textContent="تم تشفير بياناتك الأصلية مع الحسابات وكلمات المرور الجديدة ونسخ الكود بالكامل! الصقه الآن في ملف index.html في GitHub.";
   }catch(e){er.className="err";er.textContent=typeof e==="string"?e:"تعذر الحفظ"}
 };
 
