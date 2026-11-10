@@ -67,7 +67,7 @@ body.locked header,body.locked main{display:none}
 }
 .outlaw-bg .bg-media{
   position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  opacity:.52;filter:url(#outlaw-yellow);
+  opacity:.55;filter:url(#outlaw-yellow);
 }
 .outlaw-fallback{
   position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;
@@ -91,7 +91,6 @@ body.locked header,body.locked main{display:none}
   100%{transform:translate(6px,-8px)}
 }
 
-/* الشريط المتحرك الجانبي O U T L A W كما في الفيديو */
 .outlaw-sides{
   position:fixed;top:0;bottom:0;left:12px;right:12px;z-index:1;
   display:flex;justify-content:space-between;pointer-events:none;opacity:.42;overflow:hidden;
@@ -127,7 +126,6 @@ body.locked header,body.locked main{display:none}
 .err{color:#ef4444;font-size:13px;min-height:18px;font-weight:600}
 .okmsg{color:#facc15;font-size:13px;min-height:18px;font-weight:600}
 
-/* لوحة الإشراف المطورة */
 #adminp{position:fixed;inset:0;z-index:30;background:rgba(0,0,0,.75);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:14px}
 #adminp[hidden]{display:none}
 .abox{max-width:680px;max-height:92vh;overflow:hidden;display:flex;flex-direction:column;padding:0;background:#121215;border-color:rgba(250,204,21,.3);box-shadow:0 15px 60px rgba(0,0,0,.7)}
@@ -173,7 +171,6 @@ body.locked header,body.locked main{display:none}
 </head>
 <body class="locked">
 
-<!-- فلتر SVG دقيق يحول اللون السماوي في الفيديو/الصورة إلى أصفر ذهبي مع الحفاظ على الأبيض الصافي والأسود -->
 <svg width="0" height="0" style="position:absolute">
   <defs>
     <filter id="outlaw-yellow" color-interpolation-filters="sRGB">
@@ -187,16 +184,14 @@ body.locked header,body.locked main{display:none}
 </svg>
 
 <div id="login">
-  <!-- طبقة الفيديو والشعار المتحرك خلف اللوقن -->
   <div class="outlaw-bg">
-    <video id="custom-video" class="bg-media" autoplay loop muted playsinline style="display:none">
-      <source src="video_1.mov" type="video/mp4">
-      <source src="video_1.mov" type="video/quicktime">
-      <source src="banner.mp4" type="video/mp4">
+    <video id="custom-video" class="bg-media" src="wall.mov" autoplay loop muted playsinline style="display:none">
+      <source src="wall.mov" type="video/mp4">
+      <source src="wall.mov" type="video/quicktime">
+      <source src="wall.mov">
     </video>
     <img id="custom-banner" class="bg-media" src="banner.png" alt="OUTLAW RP" style="display:none">
 
-    <!-- المحاكاة المتحركة المطابقة للمقطع (تعمل تلقائياً وتختفي إذا اشتغل ملف الفيديو) -->
     <div id="fallback-anim" class="outlaw-fallback">
       <canvas id="fx-canvas"></canvas>
       <svg class="bg-svg" viewBox="0 0 900 540" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -215,7 +210,6 @@ body.locked header,body.locked main{display:none}
             <stop offset="100%" stop-color="#fde047"/>
           </linearGradient>
         </defs>
-        <!-- أسهم الزوايا المتحركة كما في الفيديو -->
         <g class="bracket-float" stroke="#facc15" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" filter="url(#yglow)" opacity="0.88">
           <path d="M185 68 V94 H159 M173 58 V82 H149"/>
           <path d="M108 422 V396 H134 M120 432 V408 H144"/>
@@ -224,21 +218,16 @@ body.locked header,body.locked main{display:none}
           <path d="M685 128 V102 H711 M697 138 V114 H721"/>
           <path d="M768 438 V464 H742 M756 428 V452 H732"/>
         </g>
-        <!-- الخطوط الخارجية المرسومة حول الشعار كما في المقطع -->
         <path d="M235 415 C285 310 355 180 412 108 C455 58 552 68 575 162 C595 252 522 398 440 422 C372 440 330 375 348 295" stroke="rgba(255,255,255,0.32)" stroke-width="1.8"/>
         <path d="M242 422 L402 135 M360 395 C450 350 565 365 678 448" stroke="rgba(255,255,255,0.25)" stroke-width="1.4"/>
-        <!-- الحلقة الصفراء من شعار OUTLAW -->
         <path d="M442 232 C412 195 425 118 485 115 C548 112 560 198 525 285 C490 372 422 402 385 352 C355 312 372 248 402 215" stroke="url(#ygrad)" stroke-width="46" stroke-linecap="round" filter="url(#yglow)"/>
-        <!-- الضلع الأبيض المائل والقاعدة لشعار OUTLAW -->
         <path d="M412 152 L285 385" stroke="url(#wgrad)" stroke-width="34" stroke-linecap="round"/>
         <path d="M285 385 C385 322 535 325 665 442" stroke="#ffffff" stroke-width="30" stroke-linecap="round"/>
-        <!-- تداخل الحلقة الصفراء فوق الضلع -->
         <path d="M392 245 C365 305 380 368 428 372" stroke="url(#ygrad)" stroke-width="42" stroke-linecap="round"/>
       </svg>
     </div>
   </div>
 
-  <!-- الشريط الجانبي المتحرك O U T L A W -->
   <div class="outlaw-sides" id="side-bars">
     <div class="side-track">
       <span><b>O</b> U T L A W &nbsp; <b>O</b> U T L A W &nbsp; <b>O</b> U T L A W &nbsp; <b>O</b> U T L A W</span>
@@ -285,7 +274,6 @@ body.locked header,body.locked main{display:none}
     </div>
 
     <div class="abody">
-      <!-- تبويب الأعضاء -->
       <div id="tab-users" class="tab-pane">
         <div class="atoolbar" style="margin-bottom:10px">
           <input id="usearch" type="search" placeholder="ابحث عن عضو بالاسم أو الرتبة…">
@@ -301,7 +289,6 @@ body.locked header,body.locked main{display:none}
         <div id="al" style="display:flex;flex-direction:column;gap:10px"></div>
       </div>
 
-      <!-- تبويب الأقسام والأكواد -->
       <div id="tab-items" class="tab-pane" hidden>
         <div class="atoolbar" style="margin-bottom:10px">
           <select id="sec-select" style="flex:1"></select>
@@ -311,13 +298,12 @@ body.locked header,body.locked main{display:none}
         <div id="sec-items" style="display:flex;flex-direction:column;gap:8px"></div>
       </div>
 
-      <!-- تبويب واجهة الدخول والشعار -->
       <div id="tab-roster" class="tab-pane" hidden>
         <div class="ucard" style="margin-bottom:12px">
           <div class="ucard-top">
             <span class="ucard-title">🎬 المقطع المتحرك / الشعار (OUTLAW Background)</span>
           </div>
-          <span class="note">ارفع ملف <code>video_1.mov</code> بجانب <code>index.html</code> في GitHub ليشتغل تلقائياً باللون الأصفر، أو اختر ملف فيديو/صورة من جهازك لمعاينته الآن:</span>
+          <span class="note">المقطع <code>wall.mov</code> مربوط تلقائياً، أو يمكنك اختيار ملف فيديو/صورة من جهازك لمعاينته:</span>
           <input type="file" id="logo-upload" accept="video/*,image/*">
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap">
@@ -365,22 +351,24 @@ function normAr(s){
 
 var VAULT=JSON.parse(document.getElementById("vault").textContent),RAWK=null,DATA=null,el=function(i){return document.getElementById(i)};
 
-// تشغيل الفيديو التلقائي أو الصورة في حال توفرهما بجانب الملف
 (function initBgMedia(){
   var vid=el("custom-video"),img=el("custom-banner"),fb=el("fallback-anim"),sb=el("side-bars");
-  vid.addEventListener("loadeddata",function(){
+  function showVid(){
     vid.style.display="block";
     fb.style.display="none";
     sb.style.display="none";
     vid.play().catch(function(){});
-  });
+  }
+  vid.addEventListener("loadeddata",showVid);
+  vid.addEventListener("canplay",showVid);
+  if(vid.readyState>=2)showVid();
+
   img.addEventListener("load",function(){
     if(vid.style.display!=="block"){
       img.style.display="block";
       fb.style.display="none";
     }
   });
-  // تأثير البرق الأصفر الخفيف في الخلفية المطابق للمقطع المتحرك
   var cvs=el("fx-canvas");
   if(cvs&&cvs.getContext){
     var ctx=cvs.getContext("2d"),bolts=[];
@@ -474,12 +462,11 @@ el("nav").addEventListener("wheel",function(e){
   if(e.deltaY!==0){e.preventDefault();this.scrollLeft-=e.deltaY;}
 },{passive:false});
 
-// معاينة أو رفع فيديو/شعار من لوحة الإشراف
 el("logo-upload").onchange=function(e){
   var f=e.target.files&&e.target.files[0];
   if(!f)return;
   var vid=el("custom-video"),img=el("custom-banner"),fb=el("fallback-anim"),sb=el("side-bars");
-  if(f.type.indexOf("video")===0){
+  if(f.type.indexOf("video")===0||f.name.toLowerCase().endsWith(".mov")){
     var url=URL.createObjectURL(f);
     vid.src=url;vid.style.display="block";img.style.display="none";fb.style.display="none";sb.style.display="none";
     vid.play().catch(function(){});
@@ -492,7 +479,6 @@ el("logo-upload").onchange=function(e){
   }
 };
 
-/* ====== لوحة الإشراف المطورة ====== */
 function updateUCount(){
   el("ucount").textContent=el("al").children.length;
 }
