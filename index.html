@@ -60,7 +60,6 @@ body.locked header,body.locked main{display:none}
 #login::after{background:radial-gradient(circle,#ca8a04,transparent 65%);bottom:-28vmax;right:-18vmax;animation-duration:25s;animation-direction:alternate-reverse}
 @keyframes drift{to{transform:translate(14vmax,9vmax) scale(1.25)}}
 
-/* خلفية الفيديو والشعار المتحرك خلف اللوقن */
 .outlaw-bg{
   position:fixed;inset:0;z-index:0;display:flex;align-items:center;justify-content:center;
   pointer-events:none;overflow:hidden;background:#070709;
@@ -123,8 +122,16 @@ body.locked header,body.locked main{display:none}
 .lbox input:focus,.abox input:focus{outline:2px solid var(--ac);border-color:var(--ac)}
 .lbox h2,.abox h2{margin:0;color:#fff}
 .sm{color:var(--ac);font-size:13px;font-weight:600;direction:ltr;text-align:right}
-.err{color:#ef4444;font-size:13px;min-height:18px;font-weight:600}
+.err{color:#ef4444;font-size:13px;min-height:18px;font-weight:600;line-height:1.4}
 .okmsg{color:#facc15;font-size:13px;min-height:18px;font-weight:600}
+.pw-wrap{position:relative;display:flex;align-items:center}
+.pw-wrap input{padding-left:40px}
+.pw-toggle{position:absolute;left:6px;background:transparent;border:none;color:var(--mut);cursor:pointer;font-size:16px;padding:4px 6px;line-height:1}
+.pw-toggle:hover{color:var(--ac)}
+.hint-box{font-size:12px;color:var(--mut);background:rgba(9,9,11,.75);border:1px dashed rgba(250,204,21,.3);border-radius:8px;padding:8px 10px;display:none;line-height:1.6}
+.hint-box code{color:var(--ac);font-family:Consolas,monospace;cursor:pointer;padding:1px 5px;background:rgba(250,204,21,.1);border-radius:4px;margin:0 2px;display:inline-block}
+.hint-btn{background:transparent;border:none;color:var(--mut);font-size:12px;cursor:pointer;text-align:right;padding:0;font-family:inherit;text-decoration:underline}
+.hint-btn:hover{color:var(--ac)}
 
 #adminp{position:fixed;inset:0;z-index:30;background:rgba(0,0,0,.75);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:14px}
 #adminp[hidden]{display:none}
@@ -161,7 +168,8 @@ body.locked header,body.locked main{display:none}
 .tier{text-align:center}
 .tier h4{margin:0 0 6px;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:#facc15;font-weight:700;text-shadow:0 2px 10px rgba(0,0,0,.9)}
 .tier div{display:flex;flex-wrap:wrap;justify-content:center;gap:6px}
-.tier span{padding:4px 12px;border-radius:99px;font-size:13px;border:1px solid rgba(250,204,21,.35);background:rgba(12,12,15,.68);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);color:#ffffff}
+.tier span{padding:4px 12px;border-radius:99px;font-size:13px;border:1px solid rgba(250,204,21,.35);background:rgba(12,12,15,.68);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);color:#ffffff;cursor:pointer;transition:.15s}
+.tier span:hover{border-color:#facc15;transform:translateY(-1px)}
 .tier.top span{border-color:#facc15;background:rgba(250,204,21,.16);box-shadow:0 0 18px rgba(250,204,21,.28);font-weight:600}
 .who{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px;margin:0 0 8px}
 .who:empty{display:none}
@@ -243,10 +251,15 @@ body.locked header,body.locked main{display:none}
     <div class="lbox">
       <h2>تسجيل الدخول</h2>
       <div class="sm">OUTLAW | Compensation Team</div>
-      <input id="lu" placeholder="اسم المستخدم" autocomplete="username">
-      <input id="lp" type="password" placeholder="كلمة السر" autocomplete="current-password">
+      <input id="lu" placeholder="اسم المستخدم (مثال: arthur)" autocomplete="username" dir="ltr">
+      <div class="pw-wrap">
+        <input id="lp" type="password" placeholder="كلمة السر" autocomplete="current-password" dir="ltr">
+        <button type="button" id="pw-eye" class="pw-toggle" title="إظهار/إخفاء كلمة السر">👁️</button>
+      </div>
       <button id="lb" class="c">دخول</button>
       <div id="le" class="err"></div>
+      <button type="button" id="show-users-btn" class="hint-btn">🔍 نسيت السبيلينج؟ اضغط لعرض اليوزرات المسجلة</button>
+      <div id="users-hint" class="hint-box"></div>
     </div>
     <div class="roster" id="roster-view">
       <div class="tier top"><h4>High Management</h4><div><span>OL | Mohammed.</span><span>OL | cobra</span><span>OL | Ahmed</span><span>OL | vAnas7</span></div></div>
@@ -410,6 +423,50 @@ var VAULT=JSON.parse(document.getElementById("vault").textContent),RAWK=null,DAT
   }
 })();
 
+// إظهار وإخفاء الباسورد
+el("pw-eye").onclick=function(){
+  var inp=el("lp");
+  if(inp.type==="password"){inp.type="text";this.textContent="🙈"}
+  else{inp.type="password";this.textContent="👁️"}
+};
+
+// الضغط على أي اسم في القائمة السفلية يكتبه تلقائياً في خانة اسم المستخدم
+[].slice.call(document.querySelectorAll("#roster-view .tier span")).forEach(function(sp){
+  sp.title="اضغط لكتابة الاسم في خانة الدخول";
+  sp.onclick=function(){
+    var clean=this.textContent.replace(/^ol\s*\|\s*/i,"").trim();
+    el("lu").value=clean;
+    el("lp").focus();
+  };
+});
+
+// فحص اليوزرات المسجلة فعلياً داخل الخزنة المشفرة
+el("show-users-btn").onclick=async function(){
+  var box=el("users-hint");
+  box.style.display="block";
+  box.textContent="جاري فحص الخزنة المشفرة...";
+  var pool=["arthur","king arthur","kingarthur","admin","mohannad","mohanad","mhnd","attack","mohammed","mohammed.","mohamed","mohamad","cobra","ahmed","ahmad","vanas7","anas","jin","7sen","7sn","hsen","hussein","ammar","faisal","bnr","banr","bndr","bandar","outlaw","compensation","saeed","luther","fahad","saud","khalid","ali","omar","sultan","nawaf","turki","aziz","abdulaziz","waleed","yasser","majed","salman","meshari","bader","talal","rakan","rayan","ziyad","yazid","hamad","nasser"];
+  // إضافة الأسماء الموجودة في الواجهة
+  [].slice.call(document.querySelectorAll("#roster-view .tier span")).forEach(function(sp){
+    var raw=sp.textContent.trim();
+    var cl=raw.replace(/^ol\s*\|\s*/i,"").trim();
+    pool.push(raw,cl,cl.replace(/\.+$/,""),"ol | "+cl);
+  });
+  var found=[];
+  var ids=VAULT.users.map(function(u){return u.id});
+  for(var i=0;i<pool.length;i++){
+    var cand=pool[i].toLowerCase().trim();
+    if(!cand||found.indexOf(cand)>-1)continue;
+    var h=await uid(cand);
+    if(ids.indexOf(h)>-1)found.push(cand);
+  }
+  if(found.length){
+    box.innerHTML="اليوزرات المكتشفة في النظام (اضغط على أي يوزر لتعبئته):<br>"+found.map(function(u){return "<code onclick=\"document.getElementById('lu').value='"+u+"';document.getElementById('lp').focus()\">"+u+"</code>"}).join(" ");
+  }else{
+    box.textContent="إجمالي الحسابات المشفرة: "+VAULT.users.length+" حساب.";
+  }
+};
+
 function copyText(t,b,okTxt){
   var orig=b?b.textContent:"";
   function done(){if(!b)return;b.textContent=okTxt||"تم ✓";b.classList.add("ok");setTimeout(function(){b.textContent=orig;b.classList.remove("ok")},1400)}
@@ -426,22 +483,74 @@ function isAdminUser(n,pf){
 }
 
 async function login(){
-  var n=el("lu").value.trim(),p=el("lp").value,err=el("le");err.textContent="";
-  try{
-    var id=await uid(n),u=VAULT.users.filter(function(x){return x.id===id})[0];
-    if(!u)throw 0;
-    RAWK=await dec(await wkey(n,p,a2b(u.salt)),u);
-    var K=await S.importKey("raw",RAWK,"AES-GCM",false,["decrypt"]);
-    DATA=JSON.parse(td.decode(await dec(K,VAULT.data)));
-  }catch(e){err.textContent="اسم المستخدم أو كلمة السر غلط";return}
+  var rawN=el("lu").value,rawP=el("lp").value,err=el("le");
+  err.className="err";err.textContent="";
+
+  var trimmedN=rawN.trim();
+  if(!trimmedN){err.textContent="⚠️ يرجى كتابة اسم المستخدم أولاً";return}
+  if(!rawP){err.textContent="⚠️ يرجى كتابة كلمة السر";return}
+
+  // توليد جميع الاحتمالات الممكنة لاسم المستخدم (بدون OL |، بدون مسافات، مع أو بدون نقطة)
+  var stripped=trimmedN.replace(/^ol\s*[\|\/\\\-:]?\s*/i,"").trim();
+  var noSpaces=stripped.replace(/\s+/g,"");
+  var noDot=stripped.replace(/\.+$/,"");
+  var cands=[
+    stripped,
+    noDot,
+    noDot+".",
+    noSpaces,
+    trimmedN,
+    "ol | "+stripped,
+    "ol | "+noDot
+  ];
+
+  var matchedN=null,u=null;
+  for(var i=0;i<cands.length;i++){
+    var c=cands[i];
+    if(!c)continue;
+    var id=await uid(c);
+    var found=VAULT.users.filter(function(x){return x.id===id})[0];
+    if(found){matchedN=c;u=found;break}
+  }
+
+  if(!u){
+    err.textContent="❌ الغلط من (اسم المستخدم): اليوزر «"+stripped+"» غير مسجل في النظام! اضغط على زر فحص اليوزرات بالأسفل للتأكد من السبيلينج.";
+    return;
+  }
+
+  // تحديث الخانة بالاسم الصحيح النظيف
+  el("lu").value=matchedN;
+
+  // تجربة كلمة السر كما هي، ثم بدون مسافات زائدة في البداية/النهاية، ثم بدون OL |
+  var pCands=[rawP];
+  if(rawP.trim()!==rawP)pCands.push(rawP.trim());
+  if(rawP.replace(/\s+/g,"")!==rawP)pCands.push(rawP.replace(/\s+/g,""));
+
+  var unlocked=false;
+  for(var j=0;j<pCands.length;j++){
+    try{
+      RAWK=await dec(await wkey(matchedN,pCands[j],a2b(u.salt)),u);
+      var K=await S.importKey("raw",RAWK,"AES-GCM",false,["decrypt"]);
+      DATA=JSON.parse(td.decode(await dec(K,VAULT.data)));
+      unlocked=true;
+      break;
+    }catch(e){}
+  }
+
+  if(!unlocked){
+    var hasAr=/[\u0600-\u06FF]/.test(rawP);
+    err.textContent="⚠️ اليوزر ("+matchedN+") صحيح وموجود، لكن الغلط من (كلمة السر)!"+(hasAr?" (تنبيه: الكيبورد يكتب عربي حالياً!)":" اضغط 👁️ للتأكد من الأحرف.");
+    return;
+  }
+
   el("login").style.display="none";document.body.classList.remove("locked");
-  var pf=(DATA.profiles||{})[n.toLowerCase()];
+  var pf=(DATA.profiles||{})[matchedN.toLowerCase()];
   if(pf){
     var w=el("who");w.innerHTML="";
     var b=document.createElement("b");b.textContent=pf.name;w.appendChild(b);
     if(pf.rank){var rk=document.createElement("i");rk.textContent=pf.rank;w.appendChild(rk)}
   }
-  if(isAdminUser(n,pf))el("adm").hidden=false;
+  if(isAdminUser(matchedN,pf))el("adm").hidden=false;
   render(DATA.CMDS,DATA.D,DATA.T);
   if(location.hash){
     var target=document.querySelector(location.hash);
@@ -502,7 +611,7 @@ function urow(n,isNew){
   var grid=document.createElement("div");grid.className="ugrid";
 
   var f1=document.createElement("div");f1.className="ufield";
-  var l1=document.createElement("label");l1.textContent="اسم المستخدم (للدخول)";
+  var l1=document.createElement("label");l1.textContent="اسم المستخدم (للدخول بدون OL |)";
   var a=document.createElement("input");a.className="u-user";a.value=n||"";a.placeholder="مثال: faisal";a.dataset.o=n||"";
   f1.appendChild(l1);f1.appendChild(a);
 
@@ -532,7 +641,7 @@ function urow(n,isNew){
   f4.appendChild(l4);f4.appendChild(pwWrap);
 
   copyBtn.onclick=function(){
-    var usr=a.value.trim()||"(لم يحدد)",pss=p.value||"(نفس كلمة السر السابقة)";
+    var usr=a.value.trim().replace(/^ol\s*\|\s*/i,"")||"(لم يحدد)",pss=p.value.trim()||"(نفس كلمة السر السابقة)";
     var msg="**بيانات دخول موقع التعويضات (OUTLAW):**\nالرابط: "+location.origin+location.pathname+"\nاسم المستخدم: `"+usr+"`\nكلمة السر: `"+pss+"`";
     copyText(msg,copyBtn,"تم النسخ ✓");
   };
@@ -689,11 +798,11 @@ async function buildUpdatedHTML(){
   var rows=[].slice.call(el("al").children),seen={},out=[],names=[],profs={};
   for(var i=0;i<rows.length;i++){
     var uIn=rows[i].querySelector(".u-user"),nIn=rows[i].querySelector(".u-name"),rIn=rows[i].querySelector(".u-rank"),pIn=rows[i].querySelector(".u-pass");
-    var n=uIn.value.trim(),o=uIn.dataset.o,p=pIn.value;
+    var n=uIn.value.trim().replace(/^ol\s*\|\s*/i,"").trim(),o=uIn.dataset.o,p=pIn.value.trim();
     if(!n)throw "فيه عضو بدون اسم مستخدم! عبّي الاسم أو احذف البطاقة.";
     if(seen[n.toLowerCase()])throw "اسم المستخدم مكرر: "+n;
     seen[n.toLowerCase()]=1;
-    if(o&&o===n&&!p){
+    if(o&&o.toLowerCase()===n.toLowerCase()&&!p){
       var oid=await uid(o),old=VAULT.users.filter(function(x){return x.id===oid})[0];
       if(!old)throw "تعذر إبقاء كلمة سر "+n+"، اكتب له كلمة سر جديدة";
       out.push(old);
@@ -702,7 +811,7 @@ async function buildUpdatedHTML(){
       out.push(await mkUser(n,p,RAWK));
     }
     names.push(n);
-    profs[n.toLowerCase()]={name:nIn.value.trim()||n,rank:rIn.value.trim()};
+    profs[n.toLowerCase()]={name:nIn.value.trim()||("OL | "+n),rank:rIn.value.trim()};
   }
   if(!out.length)throw "لازم يبقى عضو واحد على الأقل";
   DATA.users=names;DATA.profiles=profs;
@@ -713,9 +822,9 @@ async function buildUpdatedHTML(){
 
   var c=document.documentElement.cloneNode(true);
   c.querySelector("#vault").textContent=JSON.stringify(nv);
-  ["app","nav","al","who","sec-items","roster-ed"].forEach(function(id){var x=c.querySelector("#"+id);if(x)x.innerHTML=""});
+  ["app","nav","al","who","sec-items","roster-ed","users-hint"].forEach(function(id){var x=c.querySelector("#"+id);if(x)x.innerHTML=""});
   c.querySelector("body").className="locked";
-  ["login","empty"].forEach(function(i){c.querySelector("#"+i).removeAttribute("style")});
+  ["login","empty","users-hint"].forEach(function(i){var x=c.querySelector("#"+i);if(x)x.removeAttribute("style")});
   c.querySelector("#adminp").setAttribute("hidden","");
   c.querySelector("#adm").setAttribute("hidden","");
   return "<!DOCTYPE html>\n"+c.outerHTML;
