@@ -125,13 +125,9 @@ body.locked header,body.locked main{display:none}
 .err{color:#ef4444;font-size:13px;min-height:18px;font-weight:600;line-height:1.4}
 .okmsg{color:#facc15;font-size:13px;min-height:18px;font-weight:600}
 .pw-wrap{position:relative;display:flex;align-items:center}
-.pw-wrap input{padding-left:40px}
-.pw-toggle{position:absolute;left:6px;background:transparent;border:none;color:var(--mut);cursor:pointer;font-size:16px;padding:4px 6px;line-height:1}
+.pw-wrap input{padding-left:38px}
+.pw-toggle{position:absolute;left:8px;background:transparent;border:none;color:var(--mut);cursor:pointer;padding:4px;display:flex;align-items:center;justify-content:center;transition:color .15s}
 .pw-toggle:hover{color:var(--ac)}
-.hint-box{font-size:12px;color:var(--mut);background:rgba(9,9,11,.75);border:1px dashed rgba(250,204,21,.3);border-radius:8px;padding:8px 10px;display:none;line-height:1.6}
-.hint-box code{color:var(--ac);font-family:Consolas,monospace;cursor:pointer;padding:1px 5px;background:rgba(250,204,21,.1);border-radius:4px;margin:0 2px;display:inline-block}
-.hint-btn{background:transparent;border:none;color:var(--mut);font-size:12px;cursor:pointer;text-align:right;padding:0;font-family:inherit;text-decoration:underline}
-.hint-btn:hover{color:var(--ac)}
 
 #adminp{position:fixed;inset:0;z-index:30;background:rgba(0,0,0,.75);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:14px}
 #adminp[hidden]{display:none}
@@ -168,8 +164,7 @@ body.locked header,body.locked main{display:none}
 .tier{text-align:center}
 .tier h4{margin:0 0 6px;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:#facc15;font-weight:700;text-shadow:0 2px 10px rgba(0,0,0,.9)}
 .tier div{display:flex;flex-wrap:wrap;justify-content:center;gap:6px}
-.tier span{padding:4px 12px;border-radius:99px;font-size:13px;border:1px solid rgba(250,204,21,.35);background:rgba(12,12,15,.68);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);color:#ffffff;cursor:pointer;transition:.15s}
-.tier span:hover{border-color:#facc15;transform:translateY(-1px)}
+.tier span{padding:4px 12px;border-radius:99px;font-size:13px;border:1px solid rgba(250,204,21,.35);background:rgba(12,12,15,.68);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);color:#ffffff}
 .tier.top span{border-color:#facc15;background:rgba(250,204,21,.16);box-shadow:0 0 18px rgba(250,204,21,.28);font-weight:600}
 .who{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px;margin:0 0 8px}
 .who:empty{display:none}
@@ -251,24 +246,25 @@ body.locked header,body.locked main{display:none}
     <div class="lbox">
       <h2>تسجيل الدخول</h2>
       <div class="sm">OUTLAW | Compensation Team</div>
-      <input id="lu" placeholder="اسم المستخدم (مثال: arthur)" autocomplete="username" dir="ltr">
+      <input id="lu" placeholder="اسم المستخدم" autocomplete="username" dir="ltr">
       <div class="pw-wrap">
         <input id="lp" type="password" placeholder="كلمة السر" autocomplete="current-password" dir="ltr">
-        <button type="button" id="pw-eye" class="pw-toggle" title="إظهار/إخفاء كلمة السر">👁️</button>
+        <button type="button" id="pw-eye" class="pw-toggle" aria-label="عرض كلمة السر">
+          <svg id="eye-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          <svg id="eye-closed" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+        </button>
       </div>
       <button id="lb" class="c">دخول</button>
       <div id="le" class="err"></div>
-      <button type="button" id="show-users-btn" class="hint-btn">🔍 نسيت السبيلينج؟ اضغط لعرض اليوزرات المسجلة</button>
-      <div id="users-hint" class="hint-box"></div>
     </div>
     <div class="roster" id="roster-view">
-      <div class="tier top"><h4>High Management</h4><div><span>OL | Mohammed.</span><span>OL | cobra</span><span>OL | Ahmed</span><span>OL | vAnas7</span></div></div>
+      <div class="tier top"><h4>High Management</h4><div><span>OL | Mohammed.</span><span>OL | cobra</span><span>OL | Ahmed</span><span>OL | vAnas7</span><span>OL | sove</span></div></div>
       <div class="tier"><h4>Direct Manager</h4><div><span>OL | Attack</span></div></div>
       <div class="tier"><h4>Compensation Manager</h4><div><span>OL | Mohannad</span></div></div>
       <div class="tier"><h4>Assistant Compensation Manager</h4><div><span>OL | Arthur</span></div></div>
       <div class="tier"><h4>Compensation Team</h4><div><span>OL | Jin</span><span>OL | 7sen</span><span>OL | Ammar</span><span>OL | Faisal</span><span>OL | Bnr</span></div></div>
     </div>
-    <div class="credit">👑 It was made by King Arthur</div>
+    <div class="credit">It was made by King Arthur</div>
   </div>
 </div>
 
@@ -277,12 +273,12 @@ body.locked header,body.locked main{display:none}
     <div class="ahead">
       <div class="ahead-top">
         <h2>لوحة الإشراف والتحكم</h2>
-        <button id="aclose" class="c sec">✕ إغلاق</button>
+        <button id="aclose" class="c sec">إغلاق</button>
       </div>
       <div class="atabs">
-        <button class="atab active" data-tab="tab-users">👥 الأعضاء (<span id="ucount">0</span>)</button>
-        <button class="atab" data-tab="tab-items">📦 الأكواد والأقسام</button>
-        <button class="atab" data-tab="tab-roster">🏆 واجهة الدخول والمقطع</button>
+        <button class="atab active" data-tab="tab-users">الأعضاء (<span id="ucount">0</span>)</button>
+        <button class="atab" data-tab="tab-items">الأكواد والأقسام</button>
+        <button class="atab" data-tab="tab-roster">واجهة الدخول والمقطع</button>
       </div>
     </div>
 
@@ -314,14 +310,14 @@ body.locked header,body.locked main{display:none}
       <div id="tab-roster" class="tab-pane" hidden>
         <div class="ucard" style="margin-bottom:12px">
           <div class="ucard-top">
-            <span class="ucard-title">🎬 المقطع المتحرك / الشعار (OUTLAW Background)</span>
+            <span class="ucard-title">المقطع المتحرك / الشعار (OUTLAW Background)</span>
           </div>
           <span class="note">المقطع <code>wall.mov</code> مربوط تلقائياً، أو يمكنك اختيار ملف فيديو/صورة من جهازك لمعاينته:</span>
           <input type="file" id="logo-upload" accept="video/*,image/*">
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap">
           <span class="note">عدّل الأسماء الظاهرة في شاشة تسجيل الدخول (افصل بين الأسماء بفاصلة):</span>
-          <button id="roster-sync" class="c sec">🔄 مزامنة تلقائية من رتب الأعضاء</button>
+          <button id="roster-sync" class="c sec">مزامنة تلقائية من رتب الأعضاء</button>
         </div>
         <div id="roster-ed" style="display:flex;flex-direction:column;gap:10px"></div>
       </div>
@@ -330,15 +326,15 @@ body.locked header,body.locked main{display:none}
     <div class="afoot">
       <div id="ae" class="err"></div>
       <div class="arow">
-        <button id="asave-copy" class="c">📋 حفظ ونسخ الكود كامل (لـ GitHub)</button>
-        <button id="asave-dl" class="c sec">⬇️ حفظ وتحميل ملف index.html</button>
+        <button id="asave-copy" class="c">حفظ ونسخ الكود كامل (لـ GitHub)</button>
+        <button id="asave-dl" class="c sec">حفظ وتحميل ملف index.html</button>
       </div>
     </div>
   </div>
 </div>
 
 <header><div class="wrap">
-<div class="top"><h1><span>OUTLAW</span> | Compensation Team</h1><span><button id="adm" class="c" hidden>⚙️ الإشراف</button><button id="out" class="c">خروج</button></span></div><div id="who" class="who"></div>
+<div class="top"><h1><span>OUTLAW</span> | Compensation Team</h1><span><button id="adm" class="c" hidden>الإشراف</button><button id="out" class="c">خروج</button></span></div><div id="who" class="who"></div>
 <input id="q" type="search" placeholder="ابحث باسم الايتم أو الكود…" autocomplete="off">
 <nav id="nav"></nav>
 </div></header>
@@ -361,6 +357,112 @@ async function mkUser(n,p,rawK){var salt=crypto.getRandomValues(new Uint8Array(1
 function normAr(s){
   return (s||"").toLowerCase().replace(/[أإآ]/g,"ا").replace(/ة/g,"ه").replace(/ى/g,"ي").replace(/[\u064B-\u065F]/g,"");
 }
+
+// الحسابات وكلمات المرور الجديدة المعتمدة
+var PRESET_USERS={
+  "mohammed.":{pass:"OL#mhm91",name:"OL | Mohammed.",rank:"High Management"},
+  "cobra":{pass:"OL#cbr82",name:"OL | cobra",rank:"High Management"},
+  "ahmed":{pass:"OL#ahm73",name:"OL | Ahmed",rank:"High Management"},
+  "vanas7":{pass:"OL#ans64",name:"OL | vAnas7",rank:"High Management"},
+  "sove":{pass:"OL#sov55",name:"OL | sove",rank:"High Management"},
+  "attack":{pass:"OL#atk46",name:"OL | Attack",rank:"Direct Manager"},
+  "mohannad":{pass:"OL#mhn37",name:"OL | Mohannad",rank:"Compensation Manager"},
+  "arthur":{pass:"OL#art28",name:"OL | Arthur",rank:"Assistant Compensation Manager"},
+  "jin":{pass:"OL#jin19",name:"OL | Jin",rank:"Compensation Team"},
+  "7sen":{pass:"OL#7sn90",name:"OL | 7sen",rank:"Compensation Team"},
+  "ammar":{pass:"OL#amr81",name:"OL | Ammar",rank:"Compensation Team"},
+  "faisal":{pass:"OL#fsl72",name:"OL | Faisal",rank:"Compensation Team"},
+  "bnr":{pass:"OL#bnr63",name:"OL | Bnr",rank:"Compensation Team"}
+};
+
+var DEFAULT_DATA={
+  users:["Mohammed.","cobra","Ahmed","vAnas7","sove","Attack","Mohannad","Arthur","Jin","7sen","Ammar","Faisal","Bnr"],
+  profiles:{
+    "mohammed.":{name:"OL | Mohammed.",rank:"High Management"},
+    "cobra":{name:"OL | cobra",rank:"High Management"},
+    "ahmed":{name:"OL | Ahmed",rank:"High Management"},
+    "vanas7":{name:"OL | vAnas7",rank:"High Management"},
+    "sove":{name:"OL | sove",rank:"High Management"},
+    "attack":{name:"OL | Attack",rank:"Direct Manager"},
+    "mohannad":{name:"OL | Mohannad",rank:"Compensation Manager"},
+    "arthur":{name:"OL | Arthur",rank:"Assistant Compensation Manager"},
+    "jin":{name:"OL | Jin",rank:"Compensation Team"},
+    "7sen":{name:"OL | 7sen",rank:"Compensation Team"},
+    "ammar":{name:"OL | Ammar",rank:"Compensation Team"},
+    "faisal":{name:"OL | Faisal",rank:"Compensation Team"},
+    "bnr":{name:"OL | Bnr",rank:"Compensation Team"}
+  },
+  CMDS:[
+    ["إعطاء غرض للاعب","giveitem [id] [item] [amount]"],
+    ["إعطاء سلاح للاعب","giveweapon [id] [weapon] [ammo]"],
+    ["إعطاء فلوس (كاش / بنك)","givemoney [id] [cash/bank] [amount]"],
+    ["فتح حقيبة لاعب","openinv [id]"],
+    ["إنعاش لاعب","revive [id]"]
+  ],
+  T:[
+    ["قوالب ردود التذاكر",[
+      ["قبول التعويض","تم قبول طلب التعويض الخاص بك وتوثيق الأغراض، يرجى التواجد داخل السيرفر وتزويدنا بالأيدي (ID) لاستلام التعويض."],
+      ["رفض لعدم كفاية الأدلة","نعتذر منك، تم رفض طلب التعويض لعدم وجود تصوير واضح يثبت المشكلة أو فقدان الأغراض."],
+      ["إغلاق التذكرة بعد التسليم","تم تسليم التعويض بالكامل، نتمنى لك وقتاً ممتعاً في OUTLAW RP."]
+    ]]
+  ],
+  D:[
+    ["الأسلحة",[
+      ["مسدس قلوك","weapon_combatpistol"],
+      ["مسدس ثقيل","weapon_heavypistol"],
+      ["مسدس فينتج","weapon_vintagepistol"],
+      ["مسدس أبنك","weapon_appistol"],
+      ["مايكرو اس ام جي","weapon_microsmg"],
+      ["ام بي 5","weapon_smg"],
+      ["رشاش أي كي","weapon_assaultrifle"],
+      ["رشاش كاربين","weapon_carbinerifle"],
+      ["شوتقن","weapon_pumpshotgun"]
+    ]],
+    ["الذخيرة والدروع",[
+      ["ذخيرة مسدس","pistol_ammo"],
+      ["ذخيرة اس ام جي","smg_ammo"],
+      ["ذخيرة رشاش","rifle_ammo"],
+      ["ذخيرة شوتقن","shotgun_ammo"],
+      ["درع ثقيل","heavyarmor"],
+      ["درع خفيف","armor"]
+    ]],
+    ["الأدوات والاتصالات",[
+      ["راديو","radio"],
+      ["جوال","phone"],
+      ["منظار","binoculars"],
+      ["عدّة إصلاح","repairkit"],
+      ["عدّة تنظيف","cleaningkit"],
+      ["أصفاد","handcuffs"],
+      ["مفك أقفال","lockpick"],
+      ["مفك متطور","advancedlockpick"]
+    ]],
+    ["الإسعافات والصحة",[
+      ["ضماد","bandage"],
+      ["حقيبة إسعافات","firstaid"],
+      ["مسكن ألم","painkillers"],
+      ["إيفاك","ifaks"]
+    ]],
+    ["السرقات والممنوعات",[
+      ["لابتوب تهكير","laptop"],
+      ["بطاقة بنك","security_card_01"],
+      ["ترميت","thermite"],
+      ["دريل","drill"],
+      ["حقيبة نقود","markedbills"],
+      ["سبائك ذهب","goldbar"],
+      ["مجوهرات","rolex"]
+    ]],
+    ["المطاعم",[
+      ["وجبة برجر","burger"],
+      ["ساندوتش","sandwich"],
+      ["بيتزا","pizza"],
+      ["شاورما","shawarma"],
+      ["بطاطس مقلي","fries"],
+      ["ماء","water_bottle"],
+      ["كولا","kurkakola"],
+      ["قهوة","coffee"]
+    ]]
+  ]
+};
 
 var VAULT=JSON.parse(document.getElementById("vault").textContent),RAWK=null,DATA=null,el=function(i){return document.getElementById(i)};
 
@@ -423,60 +525,26 @@ var VAULT=JSON.parse(document.getElementById("vault").textContent),RAWK=null,DAT
   }
 })();
 
-// إظهار وإخفاء الباسورد
+// زر العين لإظهار وإخفاء كلمة السر
 el("pw-eye").onclick=function(){
-  var inp=el("lp");
-  if(inp.type==="password"){inp.type="text";this.textContent="🙈"}
-  else{inp.type="password";this.textContent="👁️"}
-};
-
-// الضغط على أي اسم في القائمة السفلية يكتبه تلقائياً في خانة اسم المستخدم
-[].slice.call(document.querySelectorAll("#roster-view .tier span")).forEach(function(sp){
-  sp.title="اضغط لكتابة الاسم في خانة الدخول";
-  sp.onclick=function(){
-    var clean=this.textContent.replace(/^ol\s*\|\s*/i,"").trim();
-    el("lu").value=clean;
-    el("lp").focus();
-  };
-});
-
-// فحص اليوزرات المسجلة فعلياً داخل الخزنة المشفرة
-el("show-users-btn").onclick=async function(){
-  var box=el("users-hint");
-  box.style.display="block";
-  box.textContent="جاري فحص الخزنة المشفرة...";
-  var pool=["arthur","king arthur","kingarthur","admin","mohannad","mohanad","mhnd","attack","mohammed","mohammed.","mohamed","mohamad","cobra","ahmed","ahmad","vanas7","anas","jin","7sen","7sn","hsen","hussein","ammar","faisal","bnr","banr","bndr","bandar","outlaw","compensation","saeed","luther","fahad","saud","khalid","ali","omar","sultan","nawaf","turki","aziz","abdulaziz","waleed","yasser","majed","salman","meshari","bader","talal","rakan","rayan","ziyad","yazid","hamad","nasser"];
-  // إضافة الأسماء الموجودة في الواجهة
-  [].slice.call(document.querySelectorAll("#roster-view .tier span")).forEach(function(sp){
-    var raw=sp.textContent.trim();
-    var cl=raw.replace(/^ol\s*\|\s*/i,"").trim();
-    pool.push(raw,cl,cl.replace(/\.+$/,""),"ol | "+cl);
-  });
-  var found=[];
-  var ids=VAULT.users.map(function(u){return u.id});
-  for(var i=0;i<pool.length;i++){
-    var cand=pool[i].toLowerCase().trim();
-    if(!cand||found.indexOf(cand)>-1)continue;
-    var h=await uid(cand);
-    if(ids.indexOf(h)>-1)found.push(cand);
-  }
-  if(found.length){
-    box.innerHTML="اليوزرات المكتشفة في النظام (اضغط على أي يوزر لتعبئته):<br>"+found.map(function(u){return "<code onclick=\"document.getElementById('lu').value='"+u+"';document.getElementById('lp').focus()\">"+u+"</code>"}).join(" ");
+  var inp=el("lp"),o=el("eye-open"),c=el("eye-closed");
+  if(inp.type==="password"){
+    inp.type="text";o.style.display="none";c.style.display="block";
   }else{
-    box.textContent="إجمالي الحسابات المشفرة: "+VAULT.users.length+" حساب.";
+    inp.type="password";o.style.display="block";c.style.display="none";
   }
 };
 
 function copyText(t,b,okTxt){
   var orig=b?b.textContent:"";
-  function done(){if(!b)return;b.textContent=okTxt||"تم ✓";b.classList.add("ok");setTimeout(function(){b.textContent=orig;b.classList.remove("ok")},1400)}
+  function done(){if(!b)return;b.textContent=okTxt||"تم النسخ";b.classList.add("ok");setTimeout(function(){b.textContent=orig;b.classList.remove("ok")},1400)}
   function fb(){var x=document.createElement("textarea");x.value=t;document.body.appendChild(x);x.select();try{document.execCommand("copy");done()}catch(e){}document.body.removeChild(x)}
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,fb)}else fb();
 }
 
 function isAdminUser(n,pf){
-  var u=n.toLowerCase();
-  var admins=["arthur","admin","mohannad","attack","mohammed","mohammed.","cobra","ahmed","vanas7"];
+  var u=n.toLowerCase().replace(/\.+$/,"");
+  var admins=["arthur","admin","mohannad","attack","mohammed","cobra","ahmed","vanas7","sove"];
   if(admins.indexOf(u)>-1)return true;
   var r=((pf&&pf.rank)||"").toLowerCase();
   return r.indexOf("manager")>-1||r.indexOf("management")>-1||r.indexOf("مدير")>-1||r.indexOf("إدارة")>-1;
@@ -486,71 +554,75 @@ async function login(){
   var rawN=el("lu").value,rawP=el("lp").value,err=el("le");
   err.className="err";err.textContent="";
 
-  var trimmedN=rawN.trim();
-  if(!trimmedN){err.textContent="⚠️ يرجى كتابة اسم المستخدم أولاً";return}
-  if(!rawP){err.textContent="⚠️ يرجى كتابة كلمة السر";return}
-
-  // توليد جميع الاحتمالات الممكنة لاسم المستخدم (بدون OL |، بدون مسافات، مع أو بدون نقطة)
-  var stripped=trimmedN.replace(/^ol\s*[\|\/\\\-:]?\s*/i,"").trim();
-  var noSpaces=stripped.replace(/\s+/g,"");
-  var noDot=stripped.replace(/\.+$/,"");
-  var cands=[
-    stripped,
-    noDot,
-    noDot+".",
-    noSpaces,
-    trimmedN,
-    "ol | "+stripped,
-    "ol | "+noDot
-  ];
-
-  var matchedN=null,u=null;
-  for(var i=0;i<cands.length;i++){
-    var c=cands[i];
-    if(!c)continue;
-    var id=await uid(c);
-    var found=VAULT.users.filter(function(x){return x.id===id})[0];
-    if(found){matchedN=c;u=found;break}
-  }
-
-  if(!u){
-    err.textContent="❌ الغلط من (اسم المستخدم): اليوزر «"+stripped+"» غير مسجل في النظام! اضغط على زر فحص اليوزرات بالأسفل للتأكد من السبيلينج.";
+  var stripped=rawN.trim().replace(/^ol\s*[\|\/\\\-:]?\s*/i,"").trim();
+  var cleanP=rawP.trim();
+  if(!stripped||!cleanP){
+    err.textContent="اسم المستخدم أو كلمة السر غير صحيحة";
     return;
   }
 
-  // تحديث الخانة بالاسم الصحيح النظيف
-  el("lu").value=matchedN;
+  var noDot=stripped.toLowerCase().replace(/\.+$/,"");
+  var cands=[stripped.toLowerCase(),noDot,noDot+"."];
 
-  // تجربة كلمة السر كما هي، ثم بدون مسافات زائدة في البداية/النهاية، ثم بدون OL |
-  var pCands=[rawP];
-  if(rawP.trim()!==rawP)pCands.push(rawP.trim());
-  if(rawP.replace(/\s+/g,"")!==rawP)pCands.push(rawP.replace(/\s+/g,""));
-
-  var unlocked=false;
-  for(var j=0;j<pCands.length;j++){
-    try{
-      RAWK=await dec(await wkey(matchedN,pCands[j],a2b(u.salt)),u);
-      var K=await S.importKey("raw",RAWK,"AES-GCM",false,["decrypt"]);
-      DATA=JSON.parse(td.decode(await dec(K,VAULT.data)));
-      unlocked=true;
+  // 1) فحص الدخول عبر كلمات المرور الجديدة المعتمدة
+  var presetMatch=null,presetKey=null;
+  for(var k=0;k<cands.length;k++){
+    if(PRESET_USERS[cands[k]]){
+      presetKey=cands[k];
+      presetMatch=PRESET_USERS[cands[k]];
       break;
-    }catch(e){}
+    }
   }
 
-  if(!unlocked){
-    var hasAr=/[\u0600-\u06FF]/.test(rawP);
-    err.textContent="⚠️ اليوزر ("+matchedN+") صحيح وموجود، لكن الغلط من (كلمة السر)!"+(hasAr?" (تنبيه: الكيبورد يكتب عربي حالياً!)":" اضغط 👁️ للتأكد من الأحرف.");
-    return;
+  var loggedInUser=null;
+
+  if(presetMatch && (rawP===presetMatch.pass || cleanP===presetMatch.pass)){
+    loggedInUser=presetKey;
+    if(!RAWK)RAWK=crypto.getRandomValues(new Uint8Array(32));
+    if(!DATA)DATA=JSON.parse(JSON.stringify(DEFAULT_DATA));
+  }else{
+    // 2) فحص الخزنة المشفرة (يدعم أي كلمات سر محفوظة في الخزنة)
+    var matchedN=null,u=null;
+    for(var i=0;i<cands.length;i++){
+      var id=await uid(cands[i]);
+      var found=VAULT.users.filter(function(x){return x.id===id})[0];
+      if(found){matchedN=cands[i];u=found;break}
+    }
+    if(!u){
+      err.textContent="اسم المستخدم أو كلمة السر غير صحيحة";
+      return;
+    }
+    var pCands=[rawP];
+    if(cleanP!==rawP)pCands.push(cleanP);
+    var unlocked=false;
+    for(var j=0;j<pCands.length;j++){
+      try{
+        RAWK=await dec(await wkey(matchedN,pCands[j],a2b(u.salt)),u);
+        var K=await S.importKey("raw",RAWK,"AES-GCM",false,["decrypt"]);
+        DATA=JSON.parse(td.decode(await dec(K,VAULT.data)));
+        // التأكد من وجود vAnas7 و sove في البيانات بعد فك التشفير
+        DATA.profiles=DATA.profiles||{};
+        if(!DATA.profiles["vanas7"]){DATA.users.push("vAnas7");DATA.profiles["vanas7"]={name:"OL | vAnas7",rank:"High Management"}}
+        if(!DATA.profiles["sove"]){DATA.users.push("sove");DATA.profiles["sove"]={name:"OL | sove",rank:"High Management"}}
+        unlocked=true;
+        loggedInUser=matchedN;
+        break;
+      }catch(e){}
+    }
+    if(!unlocked){
+      err.textContent="اسم المستخدم أو كلمة السر غير صحيحة";
+      return;
+    }
   }
 
   el("login").style.display="none";document.body.classList.remove("locked");
-  var pf=(DATA.profiles||{})[matchedN.toLowerCase()];
+  var pf=(DATA.profiles||{})[loggedInUser.toLowerCase()]||PRESET_USERS[loggedInUser.toLowerCase()];
   if(pf){
     var w=el("who");w.innerHTML="";
     var b=document.createElement("b");b.textContent=pf.name;w.appendChild(b);
     if(pf.rank){var rk=document.createElement("i");rk.textContent=pf.rank;w.appendChild(rk)}
   }
-  if(isAdminUser(matchedN,pf))el("adm").hidden=false;
+  if(isAdminUser(loggedInUser,pf))el("adm").hidden=false;
   render(DATA.CMDS,DATA.D,DATA.T);
   if(location.hash){
     var target=document.querySelector(location.hash);
@@ -594,15 +666,17 @@ function updateUCount(){
 
 function urow(n,isNew){
   var d=document.createElement("div");d.className="ucard";
-  var pf=(DATA.profiles||{})[(n||"").toLowerCase()]||{};
+  var key=(n||"").toLowerCase();
+  var pf=(DATA.profiles||{})[key]||PRESET_USERS[key]||{};
   var dispName=pf.name||(n?"OL | "+n:"");
   var rankVal=pf.rank||"Compensation Team";
+  var defaultPass=(PRESET_USERS[key]&&PRESET_USERS[key].pass)||"";
 
   var top=document.createElement("div");top.className="ucard-top";
   var title=document.createElement("span");title.className="ucard-title";title.textContent=dispName||"عضو جديد";
   var actions=document.createElement("div");actions.style.display="flex";actions.style.gap="6px";
 
-  var copyBtn=document.createElement("button");copyBtn.className="c sec";copyBtn.style.padding="4px 10px";copyBtn.style.fontSize="12px";copyBtn.textContent="📋 نسخ الدخول";
+  var copyBtn=document.createElement("button");copyBtn.className="c sec";copyBtn.style.padding="4px 10px";copyBtn.style.fontSize="12px";copyBtn.textContent="نسخ الدخول";
   var delBtn=document.createElement("button");delBtn.className="c del";delBtn.style.padding="4px 10px";delBtn.style.fontSize="12px";delBtn.textContent="حذف";
 
   actions.appendChild(copyBtn);actions.appendChild(delBtn);
@@ -611,8 +685,8 @@ function urow(n,isNew){
   var grid=document.createElement("div");grid.className="ugrid";
 
   var f1=document.createElement("div");f1.className="ufield";
-  var l1=document.createElement("label");l1.textContent="اسم المستخدم (للدخول بدون OL |)";
-  var a=document.createElement("input");a.className="u-user";a.value=n||"";a.placeholder="مثال: faisal";a.dataset.o=n||"";
+  var l1=document.createElement("label");l1.textContent="اسم المستخدم (للدخول)";
+  var a=document.createElement("input");a.className="u-user";a.value=n||"";a.placeholder="مثال: sove";a.dataset.o=n||"";
   f1.appendChild(l1);f1.appendChild(a);
 
   var f2=document.createElement("div");f2.className="ufield";
@@ -623,18 +697,18 @@ function urow(n,isNew){
   f2.appendChild(l2);f2.appendChild(pn);
 
   var f3=document.createElement("div");f3.className="ufield";
-  var l3=document.createElement("label");l3.textContent="الرتبة (اختر أو اكتب)";
+  var l3=document.createElement("label");l3.textContent="الرتبة";
   var pr=document.createElement("input");pr.className="u-rank";pr.value=rankVal;pr.setAttribute("list","rank-list");pr.placeholder="اختر الرتبة";
   f3.appendChild(l3);f3.appendChild(pr);
 
   var f4=document.createElement("div");f4.className="ufield";
-  var l4=document.createElement("label");l4.textContent=n?"كلمة سر جديدة (اتركها فاضية لعدم التغيير)":"كلمة السر (6 خانات فأكثر)";
+  var l4=document.createElement("label");l4.textContent="كلمة السر";
   var pwWrap=document.createElement("div");pwWrap.className="pwrow";
-  var p=document.createElement("input");p.className="u-pass";p.placeholder=n?"بدون تغيير":"كلمة السر";
-  var genBtn=document.createElement("button");genBtn.type="button";genBtn.className="c sec";genBtn.textContent="🎲 توليد";
+  var p=document.createElement("input");p.className="u-pass";p.value=defaultPass;p.placeholder=n?"اتركها فاضية لعدم التغيير":"كلمة السر (6 خانات فأكثر)";
+  var genBtn=document.createElement("button");genBtn.type="button";genBtn.className="c sec";genBtn.textContent="توليد";
   genBtn.onclick=function(){
     var chars="abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-    var pass="";for(var i=0;i<8;i++)pass+=chars.charAt(Math.floor(Math.random()*chars.length));
+    var pass="OL#";for(var i=0;i<5;i++)pass+=chars.charAt(Math.floor(Math.random()*chars.length));
     p.value=pass;
   };
   pwWrap.appendChild(p);pwWrap.appendChild(genBtn);
@@ -642,8 +716,8 @@ function urow(n,isNew){
 
   copyBtn.onclick=function(){
     var usr=a.value.trim().replace(/^ol\s*\|\s*/i,"")||"(لم يحدد)",pss=p.value.trim()||"(نفس كلمة السر السابقة)";
-    var msg="**بيانات دخول موقع التعويضات (OUTLAW):**\nالرابط: "+location.origin+location.pathname+"\nاسم المستخدم: `"+usr+"`\nكلمة السر: `"+pss+"`";
-    copyText(msg,copyBtn,"تم النسخ ✓");
+    var msg="بيانات دخول موقع التعويضات (OUTLAW):\nالرابط: "+location.origin+location.pathname+"\nاسم المستخدم: "+usr+"\nكلمة السر: "+pss;
+    copyText(msg,copyBtn,"تم النسخ");
   };
 
   delBtn.onclick=function(){
@@ -685,14 +759,14 @@ el("usearch").oninput=function(){
 var curSecKey="CMDS";
 function buildSecSelect(){
   var sel=el("sec-select");sel.innerHTML="";
-  var oCmd=document.createElement("option");oCmd.value="CMDS";oCmd.textContent="⚡ الأوامر المهمة ("+DATA.CMDS.length+")";
+  var oCmd=document.createElement("option");oCmd.value="CMDS";oCmd.textContent="الأوامر المهمة ("+DATA.CMDS.length+")";
   sel.appendChild(oCmd);
   (DATA.T||[]).forEach(function(t,i){
-    var o=document.createElement("option");o.value="T:"+i;o.textContent="📝 قالب: "+t[0]+" ("+t[1].length+")";
+    var o=document.createElement("option");o.value="T:"+i;o.textContent="قالب: "+t[0]+" ("+t[1].length+")";
     sel.appendChild(o);
   });
   (DATA.D||[]).forEach(function(d,i){
-    var o=document.createElement("option");o.value="D:"+i;o.textContent="📦 قسم: "+d[0]+" ("+d[1].length+")";
+    var o=document.createElement("option");o.value="D:"+i;o.textContent="قسم: "+d[0]+" ("+d[1].length+")";
     sel.appendChild(o);
   });
   sel.value=curSecKey;
@@ -795,26 +869,31 @@ el("aadd").onclick=function(){urow("",true)};
 el("aclose").onclick=function(){el("adminp").hidden=true};
 
 async function buildUpdatedHTML(){
-  var rows=[].slice.call(el("al").children),seen={},out=[],names=[],profs={};
+  var rows=[].slice.call(el("al").children),seen={},out=[],names=[],profs={},newPresets={};
   for(var i=0;i<rows.length;i++){
     var uIn=rows[i].querySelector(".u-user"),nIn=rows[i].querySelector(".u-name"),rIn=rows[i].querySelector(".u-rank"),pIn=rows[i].querySelector(".u-pass");
     var n=uIn.value.trim().replace(/^ol\s*\|\s*/i,"").trim(),o=uIn.dataset.o,p=pIn.value.trim();
-    if(!n)throw "فيه عضو بدون اسم مستخدم! عبّي الاسم أو احذف البطاقة.";
-    if(seen[n.toLowerCase()])throw "اسم المستخدم مكرر: "+n;
-    seen[n.toLowerCase()]=1;
-    if(o&&o.toLowerCase()===n.toLowerCase()&&!p){
+    if(!n)throw "يوجد عضو بدون اسم مستخدم، يرجى تعبئة الاسم أو حذف البطاقة.";
+    var key=n.toLowerCase();
+    if(seen[key])throw "اسم المستخدم مكرر: "+n;
+    seen[key]=1;
+    var disp=nIn.value.trim()||("OL | "+n);
+    var rnk=rIn.value.trim();
+    if(o&&o.toLowerCase()===key&&!p){
       var oid=await uid(o),old=VAULT.users.filter(function(x){return x.id===oid})[0];
-      if(!old)throw "تعذر إبقاء كلمة سر "+n+"، اكتب له كلمة سر جديدة";
+      if(!old)throw "يرجى كتابة كلمة سر للعضو "+n;
       out.push(old);
     }else{
-      if(p.length<6)throw "كلمة السر لازم 6 خانات على الأقل للعضو ("+n+")";
+      if(p.length<6)throw "كلمة السر يجب أن تكون 6 خانات على الأقل للعضو ("+n+")";
       out.push(await mkUser(n,p,RAWK));
+      newPresets[key]={pass:p,name:disp,rank:rnk};
     }
     names.push(n);
-    profs[n.toLowerCase()]={name:nIn.value.trim()||("OL | "+n),rank:rIn.value.trim()};
+    profs[key]={name:disp,rank:rnk};
   }
-  if(!out.length)throw "لازم يبقى عضو واحد على الأقل";
+  if(!out.length)throw "يجب بقاء عضو واحد على الأقل";
   DATA.users=names;DATA.profiles=profs;
+  Object.keys(newPresets).forEach(function(k){PRESET_USERS[k]=newPresets[k]});
   var K=await S.importKey("raw",RAWK,"AES-GCM",false,["encrypt"]);
   var nv={v:1,users:out,data:await enc(K,te.encode(JSON.stringify(DATA)))};
   VAULT=nv;
@@ -822,9 +901,9 @@ async function buildUpdatedHTML(){
 
   var c=document.documentElement.cloneNode(true);
   c.querySelector("#vault").textContent=JSON.stringify(nv);
-  ["app","nav","al","who","sec-items","roster-ed","users-hint"].forEach(function(id){var x=c.querySelector("#"+id);if(x)x.innerHTML=""});
+  ["app","nav","al","who","sec-items","roster-ed"].forEach(function(id){var x=c.querySelector("#"+id);if(x)x.innerHTML=""});
   c.querySelector("body").className="locked";
-  ["login","empty","users-hint"].forEach(function(i){var x=c.querySelector("#"+i);if(x)x.removeAttribute("style")});
+  ["login","empty"].forEach(function(i){var x=c.querySelector("#"+i);if(x)x.removeAttribute("style")});
   c.querySelector("#adminp").setAttribute("hidden","");
   c.querySelector("#adm").setAttribute("hidden","");
   return "<!DOCTYPE html>\n"+c.outerHTML;
@@ -834,9 +913,9 @@ el("asave-copy").onclick=async function(){
   var er=el("ae");er.className="err";er.textContent="";
   try{
     var html=await buildUpdatedHTML();
-    copyText(html,el("asave-copy"),"تم نسخ الكود ✓");
+    copyText(html,el("asave-copy"),"تم نسخ الكود");
     er.className="okmsg";
-    er.textContent="✓ تم حفظ التعديلات ونسخ كود الموقع بالكامل! افتح ملف index.html في GitHub والصق الكود.";
+    er.textContent="تم حفظ التعديلات ونسخ كود الموقع بالكامل، افتح ملف index.html في GitHub والصق الكود.";
   }catch(e){er.className="err";er.textContent=typeof e==="string"?e:"تعذر الحفظ"}
 };
 
@@ -850,7 +929,7 @@ el("asave-dl").onclick=async function(){
     document.body.appendChild(a);a.click();document.body.removeChild(a);
     URL.revokeObjectURL(url);
     er.className="okmsg";
-    er.textContent="✓ تم حفظ التعديلات وتحميل ملف index.html بنجاح!";
+    er.textContent="تم حفظ التعديلات وتحميل ملف index.html بنجاح.";
   }catch(e){er.className="err";er.textContent=typeof e==="string"?e:"تعذر الحفظ"}
 };
 
@@ -865,7 +944,7 @@ function render(CMDS,D,T){
     var c=document.createElement("code");c.textContent=v;
     i.appendChild(a);i.appendChild(c);
     var b=document.createElement("button");b.className="c";b.textContent="نسخ";
-    b.onclick=function(){copyText(v,b,"تم ✓")};
+    b.onclick=function(){copyText(v,b,"تم النسخ")};
     r.appendChild(i);r.appendChild(b);return r;
   }
 
@@ -901,7 +980,7 @@ function render(CMDS,D,T){
     var p=document.createElement("div");p.className="body";p.textContent=v;
     i.appendChild(a);i.appendChild(p);
     var b=document.createElement("button");b.className="c";b.textContent="نسخ";
-    b.onclick=function(){copyText(v,b,"تم ✓")};
+    b.onclick=function(){copyText(v,b,"تم النسخ")};
     r.appendChild(i);r.appendChild(b);return r;
   }
 
