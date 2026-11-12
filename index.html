@@ -35,54 +35,54 @@ h1 span{color:var(--ac)}
 
 /* شريط الأقسام مع البار الأفقي المخصص */
 nav{
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  padding: 8px 2px 10px;
-  scrollbar-width: thin;
-  scrollbar-color: var(--ac) rgba(255,255,255,.08);
-  -webkit-overflow-scrolling: touch;
-  scroll-behavior: smooth;
-  cursor: grab;
-  user-select: none;
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  padding:8px 2px 10px;
+  scrollbar-width:thin;
+  scrollbar-color:var(--ac) rgba(255,255,255,.08);
+  -webkit-overflow-scrolling:touch;
+  cursor:grab;
+  user-select:none;
 }
-nav:active{cursor: grabbing}
+nav.dragging{cursor:grabbing;scroll-behavior:auto}
 nav::-webkit-scrollbar{
-  height: 5px;
-  display: block;
+  height:6px;
+  display:block;
 }
 nav::-webkit-scrollbar-track{
-  background: rgba(255,255,255,.06);
-  border-radius: 99px;
-  margin: 0 4px;
+  background:rgba(255,255,255,.06);
+  border-radius:99px;
+  margin:0 4px;
 }
 nav::-webkit-scrollbar-thumb{
-  background: var(--ac);
-  border-radius: 99px;
-  box-shadow: 0 0 10px rgba(250,204,21,.4);
+  background:var(--ac);
+  border-radius:99px;
+  box-shadow:0 0 10px rgba(250,204,21,.4);
 }
 nav::-webkit-scrollbar-thumb:hover{
-  background: #fde047;
+  background:#fde047;
 }
 nav a{
-  white-space: nowrap;
-  font-size: 13px;
-  padding: 6px 14px;
-  border-radius: 99px;
-  border: 1px solid var(--bd);
-  color: var(--mut);
-  text-decoration: none;
-  background: var(--card);
-  transition: .15s;
-  display: inline-block;
-  flex-shrink: 0;
-  cursor: pointer;
+  white-space:nowrap;
+  font-size:13px;
+  padding:6px 14px;
+  border-radius:99px;
+  border:1px solid var(--bd);
+  color:var(--mut);
+  text-decoration:none;
+  background:var(--card);
+  transition:.15s;
+  display:inline-block;
+  flex-shrink:0;
+  cursor:pointer;
+  -webkit-user-drag:none;
 }
 nav a:hover,nav a.active{
-  border-color: var(--ac);
-  color: var(--ac);
-  background: var(--acbg);
-  box-shadow: 0 0 12px rgba(250,204,21,.18);
+  border-color:var(--ac);
+  color:var(--ac);
+  background:var(--acbg);
+  box-shadow:0 0 12px rgba(250,204,21,.18);
 }
 
 /* المحتوى والبطاقات */
@@ -111,7 +111,7 @@ button.c.sec{border-color:var(--bd);color:var(--tx);background:#18181b}
 .sub h3{font-size:14px;margin:0 0 6px;color:var(--ac);font-weight:600}
 .body{white-space:pre-wrap;font-size:13px;color:var(--mut);margin-top:4px;word-break:break-word;line-height:1.6}
 
-/* شاشة تسجيل الدخول */
+/* شاشة تسجيل الدخول (English UI) */
 body.locked header,body.locked main{display:none}
 #login{
   position:fixed;inset:0;z-index:30;background:#070709;overflow-x:hidden;overflow-y:auto;
@@ -172,23 +172,57 @@ body.locked header,body.locked main{display:none}
   -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
   box-shadow:0 12px 50px rgba(0,0,0,.7),0 0 60px rgba(250,204,21,.12);
   animation:rise .8s ease both;
+  direction:ltr;text-align:left;
 }
 @keyframes rise{from{opacity:0;transform:translateY(16px)}}
-.lbox h2{margin:0;color:#fff;font-size:18px}
-.sm{color:var(--ac);font-size:13px;font-weight:600;direction:ltr;text-align:right}
-.lbox input,.abox input,.abox select,.abox textarea{padding:11px 12px;font-size:15px;border:1px solid rgba(255,255,255,.18);border-radius:8px;background:rgba(9,9,11,.75);color:var(--tx);font-family:inherit;width:100%;min-width:0;-webkit-appearance:none}
-.lbox input:focus,.abox input:focus{outline:2px solid var(--ac);border-color:var(--ac)}
-.pw-wrap{position:relative;display:flex;align-items:center}
-.pw-wrap input{padding-left:42px}
-.pw-toggle{position:absolute;left:8px;background:transparent;border:none;color:var(--mut);cursor:pointer;padding:6px;display:flex;align-items:center;justify-content:center;transition:color .15s}
+.lbox h2{margin:0;color:#fff;font-size:19px;letter-spacing:.02em}
+.sm{color:var(--ac);font-size:13px;font-weight:600;direction:ltr;text-align:left}
+.lbox input:not([type="checkbox"]),.abox input,.abox select,.abox textarea{padding:11px 12px;font-size:15px;border:1px solid rgba(255,255,255,.18);border-radius:8px;background:rgba(9,9,11,.75);color:var(--tx);font-family:inherit;width:100%;min-width:0;-webkit-appearance:none}
+.lbox input:not([type="checkbox"]):focus,.abox input:focus{outline:2px solid var(--ac);border-color:var(--ac)}
+.pw-wrap{position:relative;display:flex;align-items:center;direction:ltr}
+.pw-wrap input{padding-right:42px !important;padding-left:12px !important}
+.pw-toggle{position:absolute;right:8px;left:auto;background:transparent;border:none;color:var(--mut);cursor:pointer;padding:6px;display:flex;align-items:center;justify-content:center;transition:color .15s}
 .pw-toggle:hover{color:var(--ac)}
 
-/* ميزة تذكرني */
-.rem-wrap{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mut);cursor:pointer;user-select:none;margin-top:2px}
+/* مربع Remember me المخصص: أسود من الخارج وأصفر من الداخل */
+.rem-wrap{display:inline-flex;align-items:center;gap:9px;font-size:13.5px;color:var(--tx);cursor:pointer;user-select:none;margin-top:2px;direction:ltr;width:fit-content}
 .rem-wrap input[type="checkbox"]{
-  width:18px;height:18px;accent-color:var(--ac);cursor:pointer;margin:0;border-radius:4px;
+  -webkit-appearance:none;
+  appearance:none;
+  width:19px;
+  height:19px;
+  background:#09090b;
+  border:1.5px solid #27272a;
+  border-radius:5px;
+  cursor:pointer;
+  margin:0;
+  padding:0;
+  display:inline-grid;
+  place-content:center;
+  transition:border-color .15s, box-shadow .15s;
+  flex-shrink:0;
 }
-.rem-wrap span{color:var(--tx)}
+.rem-wrap input[type="checkbox"]:hover{
+  border-color:rgba(250,204,21,.5);
+}
+.rem-wrap input[type="checkbox"]::before{
+  content:"";
+  width:11px;
+  height:11px;
+  transform:scale(0);
+  transition:transform .12s ease-in-out;
+  background-color:#facc15;
+  clip-path:polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+.rem-wrap input[type="checkbox"]:checked{
+  background:#09090b;
+  border-color:#000000;
+  box-shadow:0 0 0 1px rgba(250,204,21,.6), inset 0 0 8px rgba(0,0,0,.9);
+}
+.rem-wrap input[type="checkbox"]:checked::before{
+  transform:scale(1);
+}
+.rem-wrap span{color:#e4e4e7;font-weight:500}
 
 .err{color:#ef4444;font-size:13px;min-height:18px;font-weight:600;line-height:1.4}
 .okmsg{color:#facc15;font-size:13px;min-height:18px;font-weight:600}
@@ -236,7 +270,7 @@ body.locked header,body.locked main{display:none}
   #login{padding:calc(12px + env(safe-area-inset-top,0px)) 12px calc(20px + env(safe-area-inset-bottom,0px))}
   .lwrap{max-width:100%;gap:14px}
   .lbox{padding:18px 14px;border-radius:12px}
-  .lbox input{font-size:16px}
+  .lbox input:not([type="checkbox"]){font-size:16px}
   .grid{grid-template-columns:1fr}
   .row{padding:10px 10px}
   button.c{padding:8px 14px;min-height:38px}
@@ -324,22 +358,22 @@ body.locked header,body.locked main{display:none}
   </div>
 
   <div class="lwrap">
-    <div class="lbox">
-      <h2>تسجيل الدخول</h2>
+    <div class="lbox" dir="ltr">
+      <h2>Login</h2>
       <div class="sm">OUTLAW | Compensation Team</div>
-      <input id="lu" placeholder="اسم المستخدم" autocomplete="username" dir="ltr">
+      <input id="lu" placeholder="Username" autocomplete="username" dir="ltr">
       <div class="pw-wrap">
-        <input id="lp" type="password" placeholder="كلمة السر" autocomplete="current-password" dir="ltr">
-        <button type="button" id="pw-eye" class="pw-toggle" aria-label="عرض كلمة السر">
+        <input id="lp" type="password" placeholder="Password" autocomplete="current-password" dir="ltr">
+        <button type="button" id="pw-eye" class="pw-toggle" aria-label="Show password">
           <svg id="eye-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
           <svg id="eye-closed" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
         </button>
       </div>
       <label class="rem-wrap">
         <input type="checkbox" id="lrem" checked>
-        <span>تذكرني على هذا المتصفح</span>
+        <span>Remember me</span>
       </label>
-      <button id="lb" class="c">دخول</button>
+      <button id="lb" class="c">Sign In</button>
       <div id="le" class="err"></div>
     </div>
     <div class="roster" id="roster-view">
@@ -443,9 +477,8 @@ function normAr(s){
   return (s||"").toLowerCase().replace(/[أإآ]/g,"ا").replace(/ة/g,"ه").replace(/ى/g,"ي").replace(/[ً-ٟ]/g,"");
 }
 
-var VAULT=JSON.parse(document.getElementById("vault").textContent),RAWK=null,DATA=null,el=function(i){return document.getElementById(i)};
+var VAULT=JSON.parse(document.getElementById("vault").textContent),RAWK=null,DATA=null,SECS=[],el=function(i){return document.getElementById(i)};
 
-/* تعديل الهيدر تلقائياً لمنع تغطية عناوين الأقسام على الجوال والكمبيوتر */
 function syncHeaderHeight(){
   var h=el("site-header");
   if(h){
@@ -466,7 +499,6 @@ window.addEventListener("resize",syncHeaderHeight);
   vid.addEventListener("canplay",showVid);
   if(vid.readyState>=2)showVid();
 
-  // تشغيل الفيديو عند أول لمس في شاشات الهواتف إن منعها المتصفح تلقائياً
   document.addEventListener("touchstart",function playOnTouch(){
     if(vid.style.display==="block" && vid.paused){
       vid.play().catch(function(){});
@@ -551,7 +583,7 @@ async function login(isAuto){
   var stripped=rawN.trim().replace(/^ol\s*[\|\/\\\-:]?\s*/i,"").trim();
   var cleanP=rawP.trim();
   if(!stripped||!cleanP){
-    if(!isAuto) err.textContent="يرجى إدخال اسم المستخدم وكلمة السر";
+    if(!isAuto) err.textContent="Please enter username and password";
     return;
   }
 
@@ -568,7 +600,7 @@ async function login(isAuto){
   }
 
   if(!u){
-    if(!isAuto) err.textContent="اسم المستخدم أو كلمة السر غير صحيحة";
+    if(!isAuto) err.textContent="Invalid username or password";
     return;
   }
 
@@ -588,11 +620,10 @@ async function login(isAuto){
   }
 
   if(!unlocked){
-    if(!isAuto) err.textContent="اسم المستخدم أو كلمة السر غير صحيحة";
+    if(!isAuto) err.textContent="Invalid username or password";
     return;
   }
 
-  // حفظ ميزة تذكرني في المتصفح إذا تم تحديد الخيار
   var remChecked = el("lrem") ? el("lrem").checked : true;
   try {
     if(remChecked){
@@ -631,7 +662,6 @@ el("out").onclick=function(){
   location.reload();
 };
 
-/* فحص تسجيل الدخول التلقائي عند فتح الصفحة (ميزة تذكرني) */
 (async function checkRemembered(){
   try{
     var saved=localStorage.getItem("outlaw_auth");
@@ -642,13 +672,77 @@ el("out").onclick=function(){
         el("lp").value=creds.p;
         if(el("lrem")) el("lrem").checked=true;
         await login(true);
-      }}
+      }
+    }
   }catch(e){}
 })();
 
-el("nav").addEventListener("wheel",function(e){
-  if(e.deltaY!==0){e.preventDefault();this.scrollLeft-=e.deltaY;}
-},{passive:false});
+/* تحريك شريط الأقسام بعجلة الماوس وبالسحب الأفقي بالماوس (Click & Drag) */
+(function initNavInteractions(){
+  var navEl=el("nav");
+  navEl.addEventListener("wheel",function(e){
+    if(e.deltaY!==0){e.preventDefault();this.scrollLeft-=e.deltaY;}
+  },{passive:false});
+
+  var isDown=false,startX=0,startScroll=0,moved=false;
+  navEl.addEventListener("mousedown",function(e){
+    isDown=true;
+    moved=false;
+    startX=e.clientX;
+    startScroll=navEl.scrollLeft;
+    navEl.classList.add("dragging");
+  });
+  window.addEventListener("mouseup",function(){
+    if(isDown){
+      isDown=false;
+      navEl.classList.remove("dragging");
+    }
+  });
+  window.addEventListener("mousemove",function(e){
+    if(!isDown)return;
+    var dx=e.clientX-startX;
+    if(Math.abs(dx)>4){
+      moved=true;
+      e.preventDefault();
+      navEl.scrollLeft=startScroll-dx;
+    }
+  });
+  navEl.addEventListener("click",function(e){
+    if(moved){
+      e.preventDefault();
+      e.stopPropagation();
+      moved=false;
+    }
+  },true);
+})();
+
+/* إضاءة اسم القسم الحالي في الشريط العلوي بهدوء عند النزول بدون تحريك الصفحة أو إجبار التمرير */
+var spyTick=false;
+window.addEventListener("scroll",function(){
+  if(document.body.classList.contains("locked")||!SECS.length||spyTick)return;
+  spyTick=true;
+  requestAnimationFrame(function(){
+    spyTick=false;
+    var hdr=(el("site-header")?el("site-header").offsetHeight:120)+36;
+    var cur=null;
+    for(var i=0;i<SECS.length;i++){
+      var r=SECS[i].getBoundingClientRect();
+      if(r.top<=hdr && r.bottom>hdr){
+        cur=SECS[i];
+        break;
+      }
+    }
+    if(!cur && SECS.length && window.scrollY<180) cur=SECS[0];
+    if(cur){
+      var navEl=el("nav");
+      var lnk=navEl.querySelector('a[href="#'+cur.id+'"]');
+      if(lnk && !lnk.classList.contains("active")){
+        [].slice.call(navEl.querySelectorAll("a")).forEach(function(x){x.classList.remove("active")});
+        lnk.classList.add("active");
+      }
+    }
+  });
+},{passive:true});
 
 el("logo-upload").onchange=function(e){
   var f=e.target.files&&e.target.files[0];
@@ -906,6 +1000,7 @@ async function buildUpdatedHTML(){
   var c=document.documentElement.cloneNode(true);
   c.querySelector("#vault").textContent=JSON.stringify(nv);
   ["app","nav","al","who","sec-items","roster-ed"].forEach(function(id){var x=c.querySelector("#"+id);if(x)x.innerHTML=""});
+  ["lu","lp","q"].forEach(function(id){var x=c.querySelector("#"+id);if(x){x.value="";x.removeAttribute("value")}});
   c.querySelector("body").className="locked";
   ["login","empty"].forEach(function(i){var x=c.querySelector("#"+i);if(x)x.removeAttribute("style")});
   c.querySelector("#adminp").setAttribute("hidden","");
@@ -938,7 +1033,8 @@ el("asave-dl").onclick=async function(){
 };
 
 function render(CMDS,D,T){
-  var app=document.getElementById("app"),nav=document.getElementById("nav"),secs=[];
+  var app=document.getElementById("app"),nav=document.getElementById("nav");
+  SECS=[];
   app.innerHTML="";nav.innerHTML="";
 
   function row(n,v){
@@ -966,21 +1062,17 @@ function render(CMDS,D,T){
     r.appendChild(side);r.appendChild(b);return r;
   }
 
+  /* توسيط القسم المضغوط في شريط الأقسام العلوي فقط دون التأثير على تمرير الصفحة */
   function centerNavTab(btn){
     if(!btn || !nav) return;
     try {
-      btn.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
+      var nRect = nav.getBoundingClientRect();
+      var bRect = btn.getBoundingClientRect();
+      var diff = (bRect.left + bRect.width / 2) - (nRect.left + nRect.width / 2);
+      if (Math.abs(diff) > 2) {
+        nav.scrollBy({ left: diff, behavior: "smooth" });
+      }
     } catch(e){}
-    setTimeout(function(){
-      try {
-        var nRect = nav.getBoundingClientRect();
-        var bRect = btn.getBoundingClientRect();
-        var diff = (bRect.left + bRect.width / 2) - (nRect.left + nRect.width / 2);
-        if (Math.abs(diff) > 4) {
-          nav.scrollBy({ left: diff, behavior: "smooth" });
-        }
-      } catch(e){}
-    }, 100);
   }
 
   function scrollToSec(s,a,id){
@@ -1001,7 +1093,7 @@ function render(CMDS,D,T){
     var s=document.createElement("section");s.id=id;
     var h=document.createElement("h2");h.textContent=title;s.appendChild(h);
     var g=document.createElement("div");g.className=cls;rows.forEach(function(r){g.appendChild(r)});
-    s.appendChild(g);app.appendChild(s);secs.push(s);
+    s.appendChild(g);app.appendChild(s);SECS.push(s);
     var a=document.createElement("a");a.href="#"+id;a.textContent=title;
     a.onclick=function(e){e.preventDefault();scrollToSec(s,a,id)};
     nav.appendChild(a);
@@ -1036,7 +1128,7 @@ function render(CMDS,D,T){
   D.forEach(function(d,i){
     var k=d[0].indexOf(" | "),gn=d[0].slice(0,k);
     if(k>0){
-      var hs=GR[gn];if(!hs){section(gn,"g"+i,[],"heistwrap");hs=GR[gn]=secs[secs.length-1].querySelector(".heistwrap")}
+      var hs=GR[gn];if(!hs){section(gn,"g"+i,[],"heistwrap");hs=GR[gn]=SECS[SECS.length-1].querySelector(".heistwrap")}
       var sub=document.createElement("div");sub.className="sub";
       var h=document.createElement("h3");h.textContent=d[0].slice(k+3);sub.appendChild(h);
       var g=document.createElement("div");g.className="grid";d[1].forEach(function(x){g.appendChild(row(x[0],x[1]))});
@@ -1044,75 +1136,17 @@ function render(CMDS,D,T){
     } else section(d[0],"s"+i,d[1].map(function(x){return row(x[0],x[1])}),"grid");
   });
 
+  if(nav.firstChild) nav.firstChild.classList.add("active");
+
   el("q").oninput=function(e){
     var t=normAr(e.target.value.trim()),any=false;
-    secs.forEach(function(s){
+    SECS.forEach(function(s){
       var n=0;s.querySelectorAll(".row").forEach(function(r){var m=!t||r.dataset.s.indexOf(t)>-1;r.style.display=m?"":"none";if(m)n++});
       s.querySelectorAll(".sub").forEach(function(u){var k=0;u.querySelectorAll(".row").forEach(function(r){if(r.style.display!=="none")k++});u.style.display=k?"":"none"});
       s.style.display=n?"":"none";if(n)any=true;
     });
     el("empty").style.display=any?"none":"block";
   };
-
-// دعم السحب الأفقي بالماوس لشريط الأقسام (للكمبيوتر)
-(function initNavDrag(){
-  var isNavDown = false, navStartX, navScrollLeft, hasDragged = false;
-  nav.addEventListener('mousedown', function(e){
-    isNavDown = true;
-    hasDragged = false;
-    navStartX = e.pageX - nav.offsetLeft;
-    navScrollLeft = nav.scrollLeft;
-  });
-  window.addEventListener('mouseup', function(){
-    isNavDown = false;
-  });
-  nav.addEventListener('mousemove', function(e){
-    if(!isNavDown) return;
-    var x = e.pageX - nav.offsetLeft;
-    if(Math.abs(x - navStartX) > 4){
-      hasDragged = true;
-      e.preventDefault();
-      nav.scrollLeft = navScrollLeft - (x - navStartX);
-    }
-  });
-  nav.addEventListener('click', function(e){
-    if(hasDragged){
-      e.preventDefault();
-      e.stopPropagation();
-      hasDragged = false;
-    }
-  }, true);
-})();
-
-// تحريك الزر النشط وتوسيطه في الشريط تلقائياً عند النزول والتمرير بالصفحة
-var scrollSpyTimer;
-window.addEventListener("scroll", function(){
-  if(document.body.classList.contains("locked") || !secs || !secs.length) return;
-  clearTimeout(scrollSpyTimer);
-  scrollSpyTimer = setTimeout(function(){
-    var hdr = (el("site-header") ? el("site-header").offsetHeight : 120) + 40;
-    var currentSec = null;
-    for(var i = 0; i < secs.length; i++){
-      var rect = secs[i].getBoundingClientRect();
-      if(rect.top <= hdr && rect.bottom > hdr){
-        currentSec = secs[i];
-        break;
-      }
-    }
-    if(!currentSec && secs.length && window.scrollY < 200){
-      currentSec = secs[0];
-    }
-    if(currentSec){
-      var link = nav.querySelector('a[href="#' + currentSec.id + '"]');
-      if(link && !link.classList.contains("active")){
-        [].slice.call(nav.querySelectorAll("a")).forEach(function(x){ x.classList.remove("active"); });
-        link.classList.add("active");
-        if(typeof centerNavTab === "function") centerNavTab(link);
-      }
-    }
-  }, 100);
-}, { passive: true });
-
 }
 </script>
 </body>
