@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <title>OUTLAW | Compensation Team</title>
 <style>
 :root{
@@ -26,10 +26,13 @@ html,body{
   font-family:"Segoe UI",Tahoma,"Noto Sans Arabic",Arial,sans-serif;
   line-height:1.5;
   overflow-x:clip;
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
 }
 html{scroll-behavior:smooth}
+button,input,select,textarea,a,label{touch-action:manipulation}
 
-/* الهيدر وشريط البحث - بدون ضبابية تسبب قص الشاشة في الجوال */
+/* الهيدر وشريط البحث */
 header{
   position:sticky;
   top:0;
@@ -152,16 +155,32 @@ main{
   max-width:900px;
   margin:0 auto;
   padding:14px calc(14px + env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) calc(14px + env(safe-area-inset-left,0px));
+  overflow-x:hidden;
 }
+section{width:100%;max-width:100%;min-width:0}
 h2{font-size:16px;margin:22px 0 10px;color:var(--ac);font-weight:700}
-.cmds{display:grid;gap:8px}
-.row{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:9px 12px;transition:border-color .15s}
+.cmds{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;width:100%;max-width:100%}
+.row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  width:100%;
+  max-width:100%;
+  min-width:0;
+  background:var(--card);
+  border:1px solid var(--bd);
+  border-radius:10px;
+  padding:9px 12px;
+  transition:border-color .15s;
+  overflow:hidden;
+}
 .row:hover{border-color:rgba(250,204,21,.4)}
 .row-side{display:flex;align-items:center;gap:11px;min-width:0;flex:1}
 .item-pic{width:38px;height:38px;object-fit:contain;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);padding:3px;flex-shrink:0}
-.row .n{font-weight:600;font-size:14px;color:#fff;word-break:break-word}
-.row code{direction:ltr;unicode-bidi:plaintext;font-family:Consolas,Menlo,monospace;font-size:13px;color:var(--mut);word-break:break-all;display:block;margin-top:2px}
-.info{min-width:0;flex:1}
+.row .n{font-weight:600;font-size:14px;color:#fff;word-break:break-word;overflow-wrap:anywhere;min-width:0}
+.row code{direction:ltr;unicode-bidi:plaintext;font-family:Consolas,Menlo,monospace;font-size:13px;color:var(--mut);word-break:break-all;overflow-wrap:anywhere;display:block;margin-top:2px}
+.info{min-width:0;flex:1;max-width:100%}
 
 button.c{flex:none;cursor:pointer;border:1px solid var(--ac);background:var(--acbg);color:var(--ac);border-radius:8px;padding:7px 14px;font-size:13px;font-weight:600;font-family:inherit;transition:.15s;min-height:36px;display:inline-flex;align-items:center;justify-content:center}
 button.c:hover{background:rgba(250,204,21,.22)}
@@ -169,13 +188,45 @@ button.c.ok{background:var(--ac);color:#09090b}
 button.c.del{border-color:#dc2626;color:#ef4444;background:rgba(220,38,38,.1)}
 button.c.sec{border-color:var(--bd);color:var(--tx);background:#18181b}
 
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:8px;width:100%;max-width:100%}
 #empty{display:none;text-align:center;color:var(--mut);padding:40px 0;font-size:15px}
 .note{color:var(--mut);font-size:13px;margin:0 0 6px}
-.row.t{align-items:flex-start}
-.sub{margin-top:14px}
+
+/* تنسيق بطاقات الصيغ والريبورتات لمنع خروج النص من الإطار وتسهيل النسخ */
+.row.t{
+  flex-direction:column;
+  align-items:stretch;
+  gap:8px;
+  cursor:pointer;
+  padding:11px 12px;
+}
+.row.t:active{border-color:var(--ac)}
+.t-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  width:100%;
+  min-width:0;
+}
+.sub{margin-top:14px;width:100%;max-width:100%;min-width:0}
 .sub h3{font-size:14px;margin:0 0 6px;color:var(--ac);font-weight:600}
-.body{white-space:pre-wrap;font-size:13px;color:var(--mut);margin-top:4px;word-break:break-word;line-height:1.6}
+.body{
+  white-space:pre-wrap;
+  font-size:13px;
+  color:var(--mut);
+  word-break:break-word;
+  overflow-wrap:anywhere;
+  line-height:1.65;
+  width:100%;
+  max-width:100%;
+  min-width:0;
+  background:rgba(0,0,0,.38);
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:8px;
+  padding:9px 11px;
+  overflow-x:hidden;
+}
 
 /* شاشة تسجيل الدخول (English UI) */
 body.locked header,body.locked main{display:none}
@@ -259,13 +310,23 @@ body.locked header,body.locked main{display:none}
   width:100%;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:22px 20px;display:flex;flex-direction:column;gap:11px;
   -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
   box-shadow:0 12px 50px rgba(0,0,0,.7),0 0 60px rgba(250,204,21,.12);
-  animation:rise .8s ease both;
   direction:ltr;text-align:left;
 }
-@keyframes rise{from{opacity:0;transform:translateY(16px)}}
 .lbox h2{margin:0;color:#fff;font-size:19px;letter-spacing:.02em}
 .sm{color:var(--ac);font-size:13px;font-weight:600;direction:ltr;text-align:left}
-.lbox input:not([type="checkbox"]),.abox input,.abox select,.abox textarea{padding:11px 12px;font-size:15px;border:1px solid rgba(255,255,255,.18);border-radius:8px;background:rgba(9,9,11,.75);color:var(--tx);font-family:inherit;width:100%;min-width:0;-webkit-appearance:none}
+/* تثبيت مقاس الخط 16px دائماً لمنع الزوم التلقائي عند تسجيل الدخول في الجوال */
+.lbox input:not([type="checkbox"]),.abox input,.abox select,.abox textarea{
+  padding:11px 12px;
+  font-size:16px !important;
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:8px;
+  background:rgba(9,9,11,.75);
+  color:var(--tx);
+  font-family:inherit;
+  width:100%;
+  min-width:0;
+  -webkit-appearance:none;
+}
 .lbox input:not([type="checkbox"]):focus,.abox input:focus{outline:2px solid var(--ac);border-color:var(--ac)}
 .pw-wrap{position:relative;display:flex;align-items:center;direction:ltr}
 .pw-wrap input{padding-right:42px !important;padding-left:12px !important}
@@ -315,7 +376,7 @@ body.locked header,body.locked main{display:none}
 .err{color:#ef4444;font-size:13px;min-height:18px;font-weight:600;line-height:1.4}
 .okmsg{color:#facc15;font-size:13px;min-height:18px;font-weight:600}
 
-.roster{width:100%;display:flex;flex-direction:column;gap:10px;direction:ltr;animation:rise 1s .25s ease both}
+.roster{width:100%;display:flex;flex-direction:column;gap:10px;direction:ltr}
 .tier{text-align:center}
 .tier h4{margin:0 0 5px;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#facc15;font-weight:700;text-shadow:0 2px 10px rgba(0,0,0,.9)}
 .tier div{display:flex;flex-wrap:wrap;justify-content:center;gap:5px}
@@ -358,8 +419,7 @@ body.locked header,body.locked main{display:none}
   #login{padding:calc(12px + env(safe-area-inset-top,0px)) 12px calc(20px + env(safe-area-inset-bottom,0px))}
   .lwrap{max-width:100%;gap:14px}
   .lbox{padding:18px 14px;border-radius:12px}
-  .lbox input:not([type="checkbox"]){font-size:16px}
-  .grid{grid-template-columns:1fr}
+  .grid{grid-template-columns:minmax(0,1fr)}
   .row{padding:10px 10px}
   button.c{padding:8px 14px;min-height:38px}
   .abox{width:100%;height:100%;max-height:100%;border-radius:0;border:none}
@@ -369,7 +429,6 @@ body.locked header,body.locked main{display:none}
 @media(max-width:480px){
   h1{font-size:16px}
   .top button.c{padding:6px 11px;font-size:12.5px;min-height:34px}
-  .row{flex-direction:row;align-items:center}
   .row .n{font-size:13.5px}
   .row code{font-size:12.5px}
   .item-pic{width:34px;height:34px}
@@ -547,7 +606,7 @@ body.locked header,body.locked main{display:none}
 <nav id="nav"></nav>
 </div></header>
 <main>
-<p class="note">اضغط "نسخ" لنسخ الكود. إذا الايتم مو موجود، افتح قائمة الادمن وابحث بالاسم.</p>
+<p class="note">اضغط "نسخ" أو المس أي صيغة لنسخها فوراً. إذا الايتم مو موجود، افتح قائمة الادمن وابحث بالاسم.</p>
 <div id="app"></div>
 <div id="empty">ما فيه نتائج مطابقة</div>
 </main>
@@ -651,9 +710,10 @@ el("pw-eye").onclick=function(){
 };
 
 function copyText(t,b,okTxt){
-  var orig=b?b.textContent:"";
-  function done(){if(!b)return;b.textContent=okTxt||"تم النسخ";b.classList.add("ok");setTimeout(function(){b.textContent=orig;b.classList.remove("ok")},1400)}
-  function fb(){var x=document.createElement("textarea");x.value=t;document.body.appendChild(x);x.select();try{document.execCommand("copy");done()}catch(e){}document.body.removeChild(x)}
+  var orig=b?(b.dataset.orig||b.textContent):"";
+  if(b && !b.dataset.orig) b.dataset.orig=orig;
+  function done(){if(!b)return;b.textContent=okTxt||"تم النسخ";b.classList.add("ok");setTimeout(function(){b.textContent=b.dataset.orig||"نسخ";b.classList.remove("ok")},1400)}
+  function fb(){var x=document.createElement("textarea");x.value=t;x.style.position="fixed";x.style.opacity="0";document.body.appendChild(x);x.select();try{document.execCommand("copy");done()}catch(e){}document.body.removeChild(x)}
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,fb)}else fb();
 }
 
@@ -1206,13 +1266,14 @@ function render(CMDS,D,T){
 
   function trow(n,v){
     var r=document.createElement("div");r.className="row t";r.dataset.s=normAr(n+" "+v);
-    var i=document.createElement("div");i.className="info";
+    var head=document.createElement("div");head.className="t-head";
     var a=document.createElement("div");a.className="n";a.textContent=n;
-    var p=document.createElement("div");p.className="body";p.textContent=v;
-    i.appendChild(a);i.appendChild(p);
     var b=document.createElement("button");b.className="c";b.textContent="نسخ";
-    b.onclick=function(){copyText(v,b,"تم النسخ")};
-    r.appendChild(i);r.appendChild(b);return r;
+    b.onclick=function(e){e.stopPropagation();copyText(v,b,"تم النسخ")};
+    head.appendChild(a);head.appendChild(b);
+    var p=document.createElement("div");p.className="body";p.textContent=v;
+    r.onclick=function(){copyText(v,b,"تم النسخ")};
+    r.appendChild(head);r.appendChild(p);return r;
   }
 
   T.forEach(function(d,i){section(d[0],"t"+i,d[1].map(function(x){return trow(x[0],x[1])}),"cmds")});
