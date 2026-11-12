@@ -241,37 +241,15 @@ body.locked header,body.locked main{display:none}
 #login::after{background:radial-gradient(circle,#ca8a04,transparent 65%);bottom:-28vmax;right:-18vmax;animation-duration:25s;animation-direction:alternate-reverse}
 @keyframes drift{to{transform:translate(14vmax,9vmax) scale(1.25)}}
 
-/* خلفية الفيديو مع ضمان اللون الأصفر الذهبي في البيسي والجوال معاً */
 .outlaw-bg{
   position:fixed;inset:0;z-index:0;display:flex;align-items:center;justify-content:center;
-  pointer-events:none;overflow:hidden;background:#070709;isolation:isolate;
+  pointer-events:none;overflow:hidden;background:#070709;
 }
 .outlaw-bg .bg-media{
   position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  opacity:.55;
-  -webkit-filter:sepia(1) saturate(4.5) hue-rotate(8deg) contrast(1.08);
-  filter:url(#outlaw-yellow);
+  opacity:.55;filter:url(#outlaw-yellow);
 }
-@supports (-webkit-touch-callout: none){
-  .outlaw-bg .bg-media{
-    filter:sepia(1) saturate(4.5) hue-rotate(8deg) contrast(1.08) !important;
-  }
-}
-@media (max-width: 900px){
-  .outlaw-bg .bg-media{
-    -webkit-filter:sepia(1) saturate(4.5) hue-rotate(8deg) contrast(1.08) !important;
-    filter:sepia(1) saturate(4.5) hue-rotate(8deg) contrast(1.08) !important;
-  }
-}
-.outlaw-bg::after{
-  content:"";
-  position:absolute;inset:0;z-index:1;
-  background:#facc15;
-  mix-blend-mode:color;
-  opacity:.85;
-  pointer-events:none;
-}
-.outlaw-fallback{position:relative;z-index:2;width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+.outlaw-fallback{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center}
 #fx-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.75}
 .outlaw-fallback .bg-svg{
   width:min(90vw,820px);max-height:86vh;opacity:.48;
@@ -437,7 +415,7 @@ body.locked header,body.locked main{display:none}
 </head>
 <body class="locked">
 
-<svg width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+<svg width="0" height="0" style="position:absolute">
   <defs>
     <filter id="outlaw-yellow" color-interpolation-filters="sRGB">
       <feColorMatrix type="matrix" values="
