@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover">
 <title>OUTLAW | Compensation Team</title>
 <style>
 :root{
@@ -16,27 +16,88 @@
   box-sizing:border-box;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{
+  width:100%;
+  max-width:100%;
+  margin:0;
+  padding:0;
+  background:var(--bg);
+  color:var(--tx);
+  font-family:"Segoe UI",Tahoma,"Noto Sans Arabic",Arial,sans-serif;
+  line-height:1.5;
+  overflow-x:clip;
+}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--tx);font-family:"Segoe UI",Tahoma,"Noto Sans Arabic",Arial,sans-serif;line-height:1.5;overflow-x:hidden}
 
-/* الهيدر وشريط البحث */
-header{position:sticky;top:0;z-index:10;background:rgba(9,9,11,.94);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);padding:calc(10px + env(safe-area-inset-top,0px)) 14px 10px;border-bottom:1px solid var(--bd)}
-.wrap{max-width:900px;margin:0 auto}
-.top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}
-h1{margin:0;font-size:19px;color:#fff;font-weight:700;display:flex;align-items:center;gap:6px}
+/* الهيدر وشريط البحث - بدون ضبابية تسبب قص الشاشة في الجوال */
+header{
+  position:sticky;
+  top:0;
+  left:0;
+  right:0;
+  width:100%;
+  max-width:100%;
+  z-index:20;
+  background:#09090b;
+  padding:calc(10px + env(safe-area-inset-top,0px)) calc(14px + env(safe-area-inset-right,0px)) 10px calc(14px + env(safe-area-inset-left,0px));
+  border-bottom:1px solid var(--bd);
+}
+.wrap{
+  width:100%;
+  max-width:900px;
+  margin:0 auto;
+  min-width:0;
+  overflow:hidden;
+}
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+  margin-bottom:8px;
+  width:100%;
+  min-width:0;
+  flex-wrap:wrap;
+}
+h1{
+  margin:0;
+  font-size:19px;
+  color:#fff;
+  font-weight:700;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  min-width:0;
+  flex-shrink:1;
+}
 h1 span{color:var(--ac)}
-.top span{display:flex;gap:6px}
-.who{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:12.5px;margin:0 0 8px}
+.top span{display:flex;gap:6px;flex-shrink:0}
+.who{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:12.5px;margin:0 0 8px;width:100%}
 .who:empty{display:none}
 .who b{color:#fff}
 .who i{font-style:normal;color:var(--ac);border:1px solid var(--ac);background:var(--acbg);border-radius:99px;padding:1px 10px;font-size:11.5px}
-#q{width:100%;padding:11px 14px;font-size:16px;border:1px solid var(--bd);border-radius:10px;background:var(--card);color:var(--tx);font-family:inherit;-webkit-appearance:none}
+#q{
+  width:100%;
+  max-width:100%;
+  display:block;
+  padding:11px 14px;
+  font-size:16px;
+  border:1px solid var(--bd);
+  border-radius:10px;
+  background:var(--card);
+  color:var(--tx);
+  font-family:inherit;
+  -webkit-appearance:none;
+}
 #q:focus{outline:2px solid var(--ac);border-color:var(--ac)}
 
 /* شريط الأقسام مع البار الأفقي المخصص */
 nav{
   display:flex;
   gap:8px;
+  width:100%;
+  max-width:100%;
+  min-width:0;
   overflow-x:auto;
   padding:8px 2px 10px;
   scrollbar-width:thin;
@@ -86,7 +147,12 @@ nav a:hover,nav a.active{
 }
 
 /* المحتوى والبطاقات */
-main{max-width:900px;margin:0 auto;padding:14px calc(14px + env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) calc(14px + env(safe-area-inset-left,0px))}
+main{
+  width:100%;
+  max-width:900px;
+  margin:0 auto;
+  padding:14px calc(14px + env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) calc(14px + env(safe-area-inset-left,0px));
+}
 h2{font-size:16px;margin:22px 0 10px;color:var(--ac);font-weight:700}
 .cmds{display:grid;gap:8px}
 .row{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:9px 12px;transition:border-color .15s}
@@ -124,15 +190,37 @@ body.locked header,body.locked main{display:none}
 #login::after{background:radial-gradient(circle,#ca8a04,transparent 65%);bottom:-28vmax;right:-18vmax;animation-duration:25s;animation-direction:alternate-reverse}
 @keyframes drift{to{transform:translate(14vmax,9vmax) scale(1.25)}}
 
+/* خلفية الفيديو مع ضمان اللون الأصفر الذهبي في البيسي والجوال معاً */
 .outlaw-bg{
   position:fixed;inset:0;z-index:0;display:flex;align-items:center;justify-content:center;
-  pointer-events:none;overflow:hidden;background:#070709;
+  pointer-events:none;overflow:hidden;background:#070709;isolation:isolate;
 }
 .outlaw-bg .bg-media{
   position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  opacity:.55;filter:url(#outlaw-yellow);
+  opacity:.55;
+  -webkit-filter:sepia(1) saturate(4.5) hue-rotate(8deg) contrast(1.08);
+  filter:url(#outlaw-yellow);
 }
-.outlaw-fallback{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+@supports (-webkit-touch-callout: none){
+  .outlaw-bg .bg-media{
+    filter:sepia(1) saturate(4.5) hue-rotate(8deg) contrast(1.08) !important;
+  }
+}
+@media (max-width: 900px){
+  .outlaw-bg .bg-media{
+    -webkit-filter:sepia(1) saturate(4.5) hue-rotate(8deg) contrast(1.08) !important;
+    filter:sepia(1) saturate(4.5) hue-rotate(8deg) contrast(1.08) !important;
+  }
+}
+.outlaw-bg::after{
+  content:"";
+  position:absolute;inset:0;z-index:1;
+  background:#facc15;
+  mix-blend-mode:color;
+  opacity:.85;
+  pointer-events:none;
+}
+.outlaw-fallback{position:relative;z-index:2;width:100%;height:100%;display:flex;align-items:center;justify-content:center}
 #fx-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.75}
 .outlaw-fallback .bg-svg{
   width:min(90vw,820px);max-height:86vh;opacity:.48;
@@ -279,7 +367,8 @@ body.locked header,body.locked main{display:none}
   .item-row{grid-template-columns:1fr}
 }
 @media(max-width:480px){
-  h1{font-size:17px}
+  h1{font-size:16px}
+  .top button.c{padding:6px 11px;font-size:12.5px;min-height:34px}
   .row{flex-direction:row;align-items:center}
   .row .n{font-size:13.5px}
   .row code{font-size:12.5px}
@@ -289,7 +378,7 @@ body.locked header,body.locked main{display:none}
 </head>
 <body class="locked">
 
-<svg width="0" height="0" style="position:absolute">
+<svg width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
   <defs>
     <filter id="outlaw-yellow" color-interpolation-filters="sRGB">
       <feColorMatrix type="matrix" values="
@@ -633,7 +722,10 @@ async function login(isAuto){
     }
   }catch(e){}
 
+  if(document.activeElement && document.activeElement.blur) document.activeElement.blur();
   el("login").style.display="none";document.body.classList.remove("locked");
+  window.scrollTo(0,0);
+
   var pf=(DATA.profiles||{})[matchedN.toLowerCase()];
   if(pf){
     var w=el("who");w.innerHTML="";
@@ -648,7 +740,7 @@ async function login(isAuto){
     if(target){
       setTimeout(function(){
         var hdr=el("site-header").offsetHeight+14;
-        window.scrollTo({top:target.getBoundingClientRect().top+window.pageYOffset-hdr,behavior:"smooth"});
+        window.scrollTo({left:0,top:target.getBoundingClientRect().top+window.pageYOffset-hdr,behavior:"smooth"});
       },100);
     }
   }
@@ -1085,7 +1177,7 @@ function render(CMDS,D,T){
     a.classList.add("active");
     centerNavTab(a);
     var hdr=el("site-header").offsetHeight+14;
-    window.scrollTo({top:s.getBoundingClientRect().top+window.pageYOffset-hdr,behavior:"smooth"});
+    window.scrollTo({left:0,top:s.getBoundingClientRect().top+window.pageYOffset-hdr,behavior:"smooth"});
     history.replaceState(null,"","#"+id);
   }
 
@@ -1137,6 +1229,7 @@ function render(CMDS,D,T){
   });
 
   if(nav.firstChild) nav.firstChild.classList.add("active");
+  nav.scrollLeft = 0;
 
   el("q").oninput=function(e){
     var t=normAr(e.target.value.trim()),any=false;
